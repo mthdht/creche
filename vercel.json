@@ -11,7 +11,7 @@
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
-        "APP_URL": "https://creche-virid.vercel.app/",
+        "APP_URL": "https://creche-virid.vercel.app",
         "APP_KEY": "base64:8g3dAyda4+ClwxSLJpcw8BS8ZZVpWTj0chJ/aithA08=",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
