@@ -9,4 +9,17 @@ class AdditionalNotes extends Model
 {
     /** @use HasFactory<\Database\Factories\AdditionalNotesFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'child_id',
+        'note',
+        'severity',
+    ];
+
+    public function child()
+    {
+        return $this->belongsTo(Child::class);
+    }
+
+    
 }

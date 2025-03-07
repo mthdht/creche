@@ -9,4 +9,20 @@ class Illness extends Model
 {
     /** @use HasFactory<\Database\Factories\IllnessFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'name', 'description', 'child_id'
+    ];
+
+    public function health()
+    {
+        return $this->belongsTo(Health::class);
+    }
+
+    public function child()
+    {
+        return $this->hasOneThrough(child::class, Health::class);
+    }
+
+    
 }

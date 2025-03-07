@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use App\Models\Health;
 use App\Models\Allergy;
 use App\Models\Illness;
@@ -16,8 +17,14 @@ class Child extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'first_name', 'last_name', 'birth_date', 'sexe', 'avatar'
+        'first_name', 'last_name', 'birth_date', 'sexe', 'avatar'
     ];
+
+    // La relation avec les tuteurs (utilisateurs)
+    public function guardians()
+    {
+        return $this->belongsToMany(User::class, 'child_user');
+    }
 
     public function health()
     {
