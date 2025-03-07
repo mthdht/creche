@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('health', function (Blueprint $table) {
+        Schema::create('guardians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('child_id')->constrained('children')->onDelete('cascade');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('relationship'); // Ex: "mère", "père", "tuteur"
+            $table->string('phone')->nullable();
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('health');
+        Schema::dropIfExists('guardians');
     }
 };

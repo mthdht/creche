@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('child_parent', function (Blueprint $table) {
+        Schema::create('child_guardian', function (Blueprint $table) {
             $table->id();
             $table->foreignId('child_id')->constrained()->onDelete('cascade');
-            $table->foreignId('parent_id')->constrained()->onDelete('cascade');
+            $table->foreignId('guardian_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('child_parent');
+        Schema::dropIfExists('guardian');
     }
 };
