@@ -33,6 +33,24 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    // Les informations de profil sont liées ici
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    // Lien avec les enfants en tant que tuteur (relation many-to-many)
+    public function children()
+    {
+        return $this->belongsToMany(Child::class, 'child_user');
+    }
+
+    // Exemple de fonction pour récupérer le rôle de l'utilisateur (tuteur, professionnel, etc.)
+    public function isGuardian()
+    {
+        return $this->children()->exists();
+    }
+
     /**
      * Get the attributes that should be cast.
      *
