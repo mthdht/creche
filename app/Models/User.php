@@ -51,6 +51,11 @@ class User extends Authenticatable
         return $this->children()->exists();
     }
 
+    public function daycares()
+    {
+        return $this->hasMany(Daycare::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *

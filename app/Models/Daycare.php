@@ -10,7 +10,7 @@ class Daycare extends Model
 {
     /** @use HasFactory<\Database\Factories\DaycareFactory> */
     use HasFactory;
-    protected $fillable = ['name', 'address', 'phone', 'email'];
+    protected $fillable = ['name', 'address', 'phone', 'email', 'user_id'];
 
     /**
      * Un enfant appartient à une crèche.

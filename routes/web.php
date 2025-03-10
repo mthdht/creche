@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Models\Child;
+use App\Models\Daycare;
 
 Route::get('/', function () {
-    $user =User::factory()->hasProfile()->create();
+    $users = User::with('profile', 'daycares.children.guardians', 'children')->get();
     return Inertia::render('Welcome', [ 
-        'user' => $user->profile
+        'users' => $users,
     ]);
 })->name('home');
 
