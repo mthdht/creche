@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
-            $table->enum('role', ['professional', 'guardian', 'child'])->default('parent');
+            $table->enum('role', ['professional', 'guardian'])->default('parent');
             $table->string('relationship')->nullable(); // Ex: "mère", "père", "tuteur"
             $table->date('birth_date')->nullable();
             $table->enum('sexe', ['male', 'female']);

@@ -2,9 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\User;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    $user =User::factory()->hasProfile()->create();
+    return Inertia::render('Welcome', [ 
+        'user' => $user->profile
+    ]);
 })->name('home');
 
 Route::get('dashboard', function () {

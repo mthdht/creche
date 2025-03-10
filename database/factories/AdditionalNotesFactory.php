@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Child;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AdditionalNotes>
@@ -17,7 +18,9 @@ class AdditionalNotesFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'child_id' => Child::factory(),
+            'note' => $this->faker->sentence(), // Génère une note aléatoire
+            'severity' => $this->faker->randomElement(['low', 'medium', 'high']), // Sévérité aléatoire
         ];
     }
 }

@@ -17,7 +17,11 @@ class ChildFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'birth_date' => $this->faker->date(),
+            'sexe' => $this->faker->randomElement(['male', 'female']),
+            'avatar' => $this->faker->imageUrl(200, 200, 'cats', true), // Image placeholder
         ];
     }
 }
