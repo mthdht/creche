@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 const props = defineProps<{
-    users: Object;
+    child: Object;
 }>()
 </script>
 
@@ -38,12 +38,8 @@ const props = defineProps<{
         </header>
         <div class="duration-750 starting:opacity-0 flex w-full items-center justify-center opacity-100 transition-opacity lg:grow">
             <main class="flex w-full max-w-[335px] flex-col-reverse overflow-hidden rounded-lg lg:max-w-4xl lg:flex-row">
-                <pre v-for="user in users" :key="user.id">
-                    <pre v-if="user.daycares">
-                        <pre v-for="daycare in user.daycares" :key="daycare.id">
-                            <pre>{{ daycare.children }}</pre>
-                        </pre>
-                    </pre>
+                <pre>
+                    {{ child }}
                 </pre>
             </main>
         </div>

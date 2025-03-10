@@ -21,6 +21,7 @@ class DaycareFactory extends Factory
             'address' => $this->faker->address,
             'phone' => $this->faker->phoneNumber,
             'email' => $this->faker->safeEmail,
+            'user_id' => \App\Models\User::factory(),
         ];
     }
 }

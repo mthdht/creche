@@ -8,7 +8,7 @@ use App\Models\Child;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AdditionalNotes>
  */
-class AdditionalNotesFactory extends Factory
+class AdditionalNoteFactory extends Factory
 {
     /**
      * Define the model's default state.

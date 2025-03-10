@@ -58,6 +58,6 @@ class Child extends Model
 
     public function additionalNotes()
     {
-        return $this->hasManyThrough(AdditionalNote::class, Health::class);
+        return $this->hasMany(AdditionalNote::class);
     }
 }

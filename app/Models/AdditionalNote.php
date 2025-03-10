@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Child;
+use App\Models\Health;
 
-class AdditionalNotes extends Model
+class AdditionalNote extends Model
 {
     /** @use HasFactory<\Database\Factories\AdditionalNotesFactory> */
     use HasFactory;
@@ -20,6 +22,4 @@ class AdditionalNotes extends Model
     {
         return $this->belongsTo(Child::class);
     }
-
-    
 }

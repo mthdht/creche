@@ -7,9 +7,10 @@ use App\Models\Child;
 use App\Models\Daycare;
 
 Route::get('/', function () {
-    $users = User::with('profile', 'daycares.children.guardians', 'children')->get();
+    //$users = User::with('profile', 'daycares.children.guardians', 'children')->get();
+    $child = Child::with([ 'health' => ['illnesses', 'allergies', 'medications'], 'guardians', 'daycare'])->get();
     return Inertia::render('Welcome', [ 
-        'users' => $users,
+        'child' => $child,
     ]);
 })->name('home');
 
