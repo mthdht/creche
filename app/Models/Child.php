@@ -10,6 +10,7 @@ use App\Models\Allergy;
 use App\Models\Illness;
 use App\Models\Medication;
 use App\Models\AdditionalNote;
+use App\Models\Daycare;
 
 class Child extends Model
 {
@@ -17,8 +18,17 @@ class Child extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name', 'last_name', 'birth_date', 'sexe', 'avatar'
+        'first_name', 'last_name', 'birth_date', 'sexe', 'avatar','daycare_id'
     ];
+
+    /**
+     * Un enfant appartient à une crèche.
+     */
+    public function daycare()
+    {
+        return $this->belongsTo(Daycare::class);
+    }
+
 
     // La relation avec les tuteurs (utilisateurs)
     public function guardians()
