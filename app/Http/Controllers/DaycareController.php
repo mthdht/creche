@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Daycare;
 use App\Http\Requests\StoreDaycareRequest;
 use App\Http\Requests\UpdateDaycareRequest;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class DaycareController extends Controller
 {
@@ -13,7 +15,9 @@ class DaycareController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('daycares/Index', [
+            'daycares' => Auth::user()->daycares->loadCount('children'),
+        ]);
     }
 
     /**
