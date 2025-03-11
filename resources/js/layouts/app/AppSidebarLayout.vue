@@ -3,6 +3,7 @@ import AppContent from '@/components/AppContent.vue';
 import AppShell from '@/components/AppShell.vue';
 import AppSidebar from '@/components/AppSidebar.vue';
 import AppSidebarHeader from '@/components/AppSidebarHeader.vue';
+import AppBottomNavigation from '@/components/AppBottomNavigation.vue';
 import type { BreadcrumbItemType } from '@/types';
 
 interface Props {
@@ -17,9 +18,10 @@ withDefaults(defineProps<Props>(), {
 <template>
     <AppShell variant="sidebar">
         <AppSidebar />
-        <AppContent variant="sidebar">
+        <AppContent variant="sidebar" class="pb-16">
             <AppSidebarHeader :breadcrumbs="breadcrumbs" />
             <slot />
+            <AppBottomNavigation></AppBottomNavigation>
         </AppContent>
     </AppShell>
 </template>
