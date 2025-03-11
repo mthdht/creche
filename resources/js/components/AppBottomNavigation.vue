@@ -1,22 +1,45 @@
 <template>
     <div class="bottom-navigation fixed bottom-0 bg-white z-50 w-full border-t border-gray-200 flex">
-        <Link href="/dashboard" class="flex-1 flex flex-col items-center justify-center p-2">
-            <House class="w-6 h-6" />
-            Home
+        <Link href="/dashboard" 
+            class="flex-1 px-3"
+            >
+            <button class="flex flex-col items-center justify-center p-2 w-full" :class="{ 'border-t-2 border-sky-500': $page.url === '/dashboard' }">
+                <House class="w-6 h-6" />
+                Home
+            </button>
         </Link>
-        <Link href="/dashboard" class="flex-1 flex flex-col items-center justify-center p-2">
-            <House class="w-6 h-6" />
-            Crèches
+
+        <Link href="/children" 
+            class="flex-1 px-3"
+            >
+            <button class="flex flex-col items-center justify-center p-2 w-full" :class="{ 'border-t-2 border-sky-500': $page.url === '/children' }">
+                <Baby class="w-6 h-6" />
+                Home
+            </button>
         </Link>
-        <Link href="/dashboard" class="flex-1 flex flex-col items-center justify-center p-2">
-            <House class="w-6 h-6" />
-            Enfants
+
+        <Link href="/daycares" 
+            class="flex-1 px-3"
+            >
+            <button class="flex flex-col items-center justify-center p-2 w-full" :class="{ 'border-t-2 border-sky-500': $page.url === '/daycares' }">
+                <Store class="w-6 h-6" />
+                Home
+            </button>
         </Link>
-        <slot></slot>
+
+        <Link href="/settings" 
+            class="flex-1 px-3"
+            >
+            <button class="flex flex-col items-center justify-center p-2 w-full" :class="{ 'border-t-2 border-sky-500': $page.url === '/settings' }">
+                <Settings class="w-6 h-6" />
+                Réglages
+            </button>
+        </Link>
+        
     </div>
 </template>
 
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
-import { House } from 'lucide-vue-next'
+import { Baby, House, Settings, Store } from 'lucide-vue-next'
 </script>
