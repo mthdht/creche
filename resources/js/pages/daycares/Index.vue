@@ -6,7 +6,7 @@
             <h2 class="font-semibold text-xl flex justify-between">
                 <div class="flex gap-3 items-center">
                     <Store class="size-7 text-indigo-500"></Store>
-                    Gerer les enfants !
+                    Gerer les crèches !
                 </div>
                 <button class="bg-emerald-500 px-3 py-1 rounded shadow">
                     <UserPlus class="size-7 text-white"></UserPlus>
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <section class="filters flex justify-between gap-2">
+            <!--<section class="filters flex justify-between gap-2">
                 <Select v-model="filters.creche" 
                     :options="[{label: 'Toutes crèches', value: null}, {label: 'Creche 1', value: 'creche 1'}, {label: 'Creche 2', value: 'creche 2'}]" 
                     class="w-1/2 bg-white"
@@ -36,16 +36,20 @@
                     :options="[{label: 'Aucun tri', value: null}, {label: 'Nom', value: 'name'}, {label: 'Sexe', value: 'sexe'}]" 
                     placeholder="Trier par" class="w-1/2 bg-white"
                 ></Select>
-            </section>
+            </section> -->
 
             <section class="daycares space-y-3" >
-                <div class="daycare border shadow p-4 relative rounded space-y-2 bg-white" v-for="(daycare, index) in props.daycares">
+                <Link 
+                    :href="'daycares/' + daycare.id" 
+                    class="block daycare border shadow p-4 relative rounded space-y-2 bg-white" 
+                    v-for="(daycare, index) in filteredDaycares"
+                >
                     <p class="font-semibold">
                         {{  daycare.name }}
                     </p>
                     <p class="text-sm">{{ daycare.address }}</p>
                     <p class="flex gap-2 items-center"><Baby class="size-6"></Baby>{{ daycare.children_count }} enfants</p>
-                </div>
+                </Link href="daycares/">
             </section>
 
 
@@ -82,10 +86,7 @@ const filters = reactive({
 });
 
 const filteredDaycares = computed(() => {
-    /*return props.daycares
-        .filter(child => filters.creche ? child.creche == filters.creche : true)
-        .filter(child => child.name.toLowerCase().includes(filters.search.toLowerCase()))
-        .slice()
-        .sort((a, b) => a[filters.sort]?.localeCompare(b[filters.sort]))
-*/})
+    return props.daycares
+        .filter(daycare => daycare.name.toLowerCase().includes(filters.search.toLowerCase()))
+})
 </script>

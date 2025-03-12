@@ -55,6 +55,15 @@ export interface Daycare {
     phone: string;
     address: string | null;
     children_count: number;
+    children: Array<Child>;
 }
 
+export interface Child {
+    id: number;
+    first_name: string;
+    last_name: string;
+    sexe: string;
+    birth_date: string;
+    avatar: string | null;
+}
 export type BreadcrumbItemType = BreadcrumbItem;

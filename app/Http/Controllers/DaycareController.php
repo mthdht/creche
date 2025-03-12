@@ -41,7 +41,9 @@ class DaycareController extends Controller
      */
     public function show(Daycare $daycare)
     {
-        //
+        return Inertia::render('daycares/Show', [
+            'daycare' => $daycare->load('children'),
+        ]);
     }
 
     /**

@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
+import { Baby, House, Settings, Store } from 'lucide-vue-next'
+</script>
+
 <template>
     <div class="bottom-navigation fixed bottom-0 bg-white z-50 w-full border-t border-gray-200 flex">
         <Link href="/dashboard" 
@@ -38,8 +43,3 @@
         
     </div>
 </template>
-
-<script setup>
-import { Link, usePage } from '@inertiajs/vue3';
-import { Baby, House, Settings, Store } from 'lucide-vue-next'
-</script>

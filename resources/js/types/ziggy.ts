@@ -1,4 +1,8 @@
 import { Config, RouteParams } from 'ziggy-js';
+import { usePage } from '@inertiajs/vue3'
+
+
+const Page = usePage();
 
 declare global {
     function route(): Config;
@@ -8,5 +12,6 @@ declare global {
 declare module '@vue/runtime-core' {
     interface ComponentCustomProperties {
         route: typeof route;
+        $page: typeof Page;
     }
 }
