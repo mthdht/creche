@@ -31,6 +31,21 @@ export interface User {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
+    profile: UserProfile;
+}
+
+interface UserProfile {
+    id: number;
+    user_id: number;
+    first_name: string;
+    last_name: string;
+    phone?: string;
+    address?: string;
+    role: string;
+    sexe: string;
+    birth_date?: string;
+    avatar?: string;
+    relationship?: string;
 }
 
 export interface Daycare {

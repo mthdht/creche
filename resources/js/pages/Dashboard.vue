@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
+import { type BreadcrumbItem, type User, type SharedData } from '@/types';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import { Hand, Mail, MessagesSquare, NotebookPen, NotepadText, Users } from 'lucide-vue-next';
+
+const page = usePage<SharedData>();
+const user = page.props.auth.user as User;
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -19,7 +22,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         <div class="space-y-4 p-4 bg-slate-50 h-full">
             <h2 class="font-semibold text-xl flex gap-3">
                 <Hand class="size-7 text-indigo-500"></Hand>
-                Welcome David !
+                Welcome {{ user.profile.first_name }} {{ user.profile.last_name }}!
             </h2>
 
             <!-- Stats -->
