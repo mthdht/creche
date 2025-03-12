@@ -1,5 +1,5 @@
 <template>
-    <Head title="Dashboard" />
+    <Head title="Mes Crèches" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="space-y-4 p-4 bg-slate-50 h-full">
@@ -8,8 +8,8 @@
                     <Store class="size-7 text-indigo-500"></Store>
                     Gerer les crèches !
                 </div>
-                <button class="bg-emerald-500 px-3 py-1 rounded shadow">
-                    <UserPlus class="size-7 text-white"></UserPlus>
+                <button class="bg-emerald-500 p-1 rounded shadow">
+                    <Plus class="size-7 text-white"></Plus>
                 </button>
             </h2>
 
@@ -62,7 +62,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, type Daycare } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { Baby, Search, Store, UserPlus } from 'lucide-vue-next';
+import { Baby, Plus, Search, Store, UserPlus } from 'lucide-vue-next';
 import { reactive, computed } from 'vue';
 import Select from '@/components/Select.vue';
 

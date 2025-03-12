@@ -46,7 +46,7 @@ const filteredChildren = computed(() => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head :title="props.daycare.name" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="space-y-4 p-4 bg-slate-50 h-full">
