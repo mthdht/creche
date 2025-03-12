@@ -29,9 +29,20 @@ const filters = reactive({
 });
 
 const filteredChildren = computed(() => {
-    console.log(props.daycare.children.filter(child => child.first_name.toLowerCase().includes(filters.search.toLowerCase())))
-    return props.daycare.children.filter(child => child.first_name.toLowerCase().includes(filters.search.toLowerCase()))
-})
+    return props.daycare.children
+        .filter(child => child.first_name.toLowerCase().includes(filters.search.toLowerCase()))
+        .sort((a, b) => {
+            if (filters.sort === 'first_name') {
+                return a.first_name.localeCompare(b.first_name);
+            }
+
+            if (filters.sort === 'sexe') {
+                return a.sexe.localeCompare(b.sexe);
+            }
+            return 0;
+        })
+});
+
 </script>
 
 <template>

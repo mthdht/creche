@@ -26,7 +26,7 @@ import { Baby, House, Settings, Store } from 'lucide-vue-next'
         <Link href="/daycares" 
             class="flex-1 px-3"
             >
-            <button class="flex flex-col items-center justify-center p-2 pb-1 w-full" :class="{ 'border-t-2 border-sky-500': $page.url === '/daycares' }">
+            <button class="flex flex-col items-center justify-center p-2 pb-1 w-full" :class="{ 'border-t-2 border-sky-500': $page.url.startsWith('/daycares') }">
                 <Store class="size-7" />
                 Crèches
             </button>

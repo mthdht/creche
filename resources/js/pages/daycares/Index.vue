@@ -81,7 +81,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const filters = reactive({
     search: '',
-    sort: null,
+    sort: ''
 });
 
 const filteredDaycares = computed(() => {
