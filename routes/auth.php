@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
     
     Route::resource('daycares', DaycareController::class);
+    Route::resource('daycares.children', ChildrenController::class);
 
 
 });
