@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppBottomNavigation from '@/components/AppBottomNavigation.vue';
 import AppContent from '@/components/AppContent.vue';
 import AppHeader from '@/components/AppHeader.vue';
 import AppShell from '@/components/AppShell.vue';
@@ -19,5 +20,6 @@ withDefaults(defineProps<Props>(), {
         <AppContent>
             <slot />
         </AppContent>
+        <AppBottomNavigation></AppBottomNavigation>
     </AppShell>
 </template>

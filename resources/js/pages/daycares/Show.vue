@@ -29,10 +29,8 @@ const filters = reactive({
 });
 
 const filteredChildren = computed(() => {
-    return props.daycare.children
-        .filter(child => child.first_name.toLowerCase().includes(filters.search.toLowerCase()))
-        .slice()
-        .sort((a, b) => a[filters.sort]?.localeCompare(b[filters.sort]))
+    console.log(props.daycare.children.filter(child => child.first_name.toLowerCase().includes(filters.search.toLowerCase())))
+    return props.daycare.children.filter(child => child.first_name.toLowerCase().includes(filters.search.toLowerCase()))
 })
 </script>
 
@@ -58,36 +56,19 @@ const filteredChildren = computed(() => {
                     <input 
                         type="text" 
                         class="w-full rounded border border-gray-200 p-2 pl-10" 
-                        placeholder="Rechercher une crèche"
+                        placeholder="Rechercher un enfant"
                         v-model="filters.search">
                 </div>
             </div>
 
             <section class="filters flex justify-between gap-2">
-                <Select v-model="filters.daycare" 
-                    :options="[{label: 'Toutes crèches', value: null}, {label: 'Creche 1', value: 'creche 1'}, {label: 'Creche 2', value: 'creche 2'}]" 
-                    class="w-1/2 bg-white"
-                    placeholder="Trier par crèche"
-                ></Select>
-
                 <Select v-model="filters.sort" 
-                    :options="[{label: 'Aucun tri', value: null}, {label: 'Nom', value: 'name'}, {label: 'Sexe', value: 'sexe'}]" 
+                    :options="[{label: 'Aucun tri', value: null}, {label: 'Nom', value: 'first_name'}, {label: 'Sexe', value: 'sexe'}]" 
                     placeholder="Trier par" class="w-1/2 bg-white"
                 ></Select>
             </section>
 
-            <section class="daycares space-y-3" >
-                <Link 
-                    :href="'daycares/' + daycare.id" 
-                    class="block daycare border shadow p-4 relative rounded space-y-2 bg-white" 
-                    v-for="(child, index) in props.daycare.children"
-                >
-                    <p class="font-semibold">
-                        {{  child.first_name }}
-                    </p>
-                    <p class="text-sm">{{ child.sexe }}</p>
-                </Link href="daycares/">
-
+            <section class="daycares grid grid-cols-3 gap-2" >
                 <Link 
                     class="child aspect-square border shadow flex flex-col justify-between items-center p-2 relative rounded" 
                     v-for="(child, index) in filteredChildren"
@@ -100,7 +81,7 @@ const filteredChildren = computed(() => {
                         <img :src="child.avatar || 'ok'" alt="" class="size-full object-cover">
                     </div>
                     
-                    <span class="font-semibold">{{  child.name }}</span>
+                    <span class="font-semibold">{{  child.first_name }}</span>
                 </Link>
             </section>
 
