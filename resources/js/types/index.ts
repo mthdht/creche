@@ -33,4 +33,13 @@ export interface User {
     updated_at: string;
 }
 
+export interface Daycare {
+    id: number;
+    name: string;
+    email?: string;
+    phone: string;
+    address: string | null;
+    children_count: number;
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;

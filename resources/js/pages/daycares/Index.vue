@@ -28,18 +28,18 @@
             <section class="filters flex justify-between gap-2">
                 <Select v-model="filters.creche" 
                     :options="[{label: 'Toutes crèches', value: null}, {label: 'Creche 1', value: 'creche 1'}, {label: 'Creche 2', value: 'creche 2'}]" 
-                    class="w-1/2"
+                    class="w-1/2 bg-white"
                     placeholder="Trier par crèche"
                 ></Select>
 
                 <Select v-model="filters.sort" 
                     :options="[{label: 'Aucun tri', value: null}, {label: 'Nom', value: 'name'}, {label: 'Sexe', value: 'sexe'}]" 
-                    placeholder="Trier par" class="w-1/2"
+                    placeholder="Trier par" class="w-1/2 bg-white"
                 ></Select>
             </section>
 
             <section class="daycares space-y-3" >
-                <div class="daycare border shadow p-4 relative rounded space-y-2" v-for="(daycare, index) in props.daycares">
+                <div class="daycare border shadow p-4 relative rounded space-y-2 bg-white" v-for="(daycare, index) in props.daycares">
                     <p class="font-semibold">
                         {{  daycare.name }}
                     </p>
@@ -56,11 +56,15 @@
 
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
+import { type BreadcrumbItem, type Daycare } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { Baby, Hand, Mail, MessagesSquare, NotebookPen, NotepadText, Search, Store, UserPlus, Users } from 'lucide-vue-next';
+import { Baby, Search, Store, UserPlus } from 'lucide-vue-next';
 import { reactive, computed } from 'vue';
 import Select from '@/components/Select.vue';
+
+const props = defineProps<{
+    daycares: Daycare[];
+}>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -69,9 +73,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const props = defineProps<{
-    daycares: Object[];
-}>();
+
 
 const filters = reactive({
     search: '',
