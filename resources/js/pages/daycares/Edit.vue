@@ -15,8 +15,12 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/daycares',
     },
     {
-        title: 'Créer une crèche',
-        href: '/daycares/create'
+        title: props.daycare.name,
+        href: '/daycares/' + props.daycare.id,
+    },
+    {
+        title: 'Editer',
+        href: route("daycares.edit", {daycare: props.daycare.id}),
     },
 ];
 
@@ -28,7 +32,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('daycares.store'))
+    form.put(route('daycares.update', {daycare: props.daycare.id}));
 };
 
 </script>

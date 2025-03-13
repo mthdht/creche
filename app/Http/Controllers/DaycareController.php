@@ -77,6 +77,8 @@ class DaycareController extends Controller
      */
     public function destroy(Daycare $daycare)
     {
-        //
+        $daycare->delete();
+
+        return redirect()->route('daycares.index');
     }
 }

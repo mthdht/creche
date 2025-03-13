@@ -55,12 +55,12 @@ const filteredChildren = computed(() => {
                     <Store class="size-8 text-indigo-500"></Store>
                     {{ props.daycare.name}} !
                 </div>
-                <div class="actions flex gap-2">
+                <div class="actions flex gap-2 items-start">
                     <Link :href="route('daycares.edit', {daycare: props.daycare.id})">
                         <Pencil class="size-8 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
                     </Link>
 
-                    <Link :href="route('daycares.destroy', {daycare: props.daycare.id})">
+                    <Link :href="route('daycares.destroy', {daycare: props.daycare.id})" method="delete">
                         <Trash class="size-8 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
                     </Link>
                 </div>
@@ -105,7 +105,7 @@ const filteredChildren = computed(() => {
                 <template v-if="filteredChildren.length === 0">
                     <p class="text-center text-gray-500">Aucune enfant trouvée</p>
                 </template>
-                
+
                 <div class="grid grid-cols-3 gap-2">
                     <Link 
                         class="child aspect-square border shadow flex flex-col justify-between items-center p-2 relative rounded" 
