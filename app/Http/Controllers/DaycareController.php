@@ -33,7 +33,11 @@ class DaycareController extends Controller
      */
     public function store(StoreDaycareRequest $request)
     {
-        //
+        $data = $request->validated();
+        
+        $daycare = $request->user()->daycares()->create($data);
+
+        return redirect()->route('daycares.show', $daycare);
     }
 
     /**
