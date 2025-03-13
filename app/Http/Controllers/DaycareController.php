@@ -55,7 +55,9 @@ class DaycareController extends Controller
      */
     public function edit(Daycare $daycare)
     {
-        //
+        return Inertia::render('daycares/Edit', [
+            'daycare' => $daycare->load('children'),
+        ]);
     }
 
     /**
@@ -63,7 +65,11 @@ class DaycareController extends Controller
      */
     public function update(UpdateDaycareRequest $request, Daycare $daycare)
     {
-        //
+        $data = $request->validated();
+        
+        $daycare->update($data);
+
+        return redirect()->route('daycares.show', $daycare);
     }
 
     /**

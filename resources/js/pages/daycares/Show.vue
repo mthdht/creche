@@ -2,7 +2,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, type Daycare, type Child } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
-import { Baby, Locate, Pencil, Search, Store, UserPlus } from 'lucide-vue-next';
+import { Baby, Locate, Pencil, Search, Store, Trash, UserPlus } from 'lucide-vue-next';
 import { reactive, computed } from 'vue';
 import Select from '@/components/Select.vue';
 
@@ -55,9 +55,16 @@ const filteredChildren = computed(() => {
                     <Store class="size-8 text-indigo-500"></Store>
                     {{ props.daycare.name}} !
                 </div>
-                <Link :href="route('daycares.edit', {daycare: props.daycare.id})">
-                    <Pencil class="size-8 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
-                </Link>
+                <div class="actions flex gap-2">
+                    <Link :href="route('daycares.edit', {daycare: props.daycare.id})">
+                        <Pencil class="size-8 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
+                    </Link>
+
+                    <Link :href="route('daycares.destroy', {daycare: props.daycare.id})">
+                        <Trash class="size-8 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
+                    </Link>
+                </div>
+
             </h2>
 
             <div class=" p-4 border shadow-sm rounded bg-white space-y-4 font-semibold">
