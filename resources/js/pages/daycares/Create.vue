@@ -83,7 +83,6 @@ const submit = () => {
                         class="w-full rounded-lg border border-gray-200 p-2" 
                         placeholder="patronille @gmail.com"
                         v-model="form.email"
-                        required
                         tabindex="3"
                     >
                     <InputError :message="form.errors.email" />
@@ -98,8 +97,8 @@ const submit = () => {
                         class="w-full rounded-lg border border-gray-200 p-2" 
                         placeholder="123-456-7890"
                         v-model="form.phone"
-                        required
                         tabindex="4"
+                        required
                     >
                     <InputError :message="form.errors.phone" />
                 </div>
