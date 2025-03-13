@@ -101,26 +101,29 @@ const filteredChildren = computed(() => {
                 </button>
             </section>
 
-            <section class="daycares grid grid-cols-3 gap-2" >
-                <Link 
-                    class="child aspect-square border shadow flex flex-col justify-between items-center p-2 relative rounded" 
-                    v-for="(child, index) in filteredChildren"
-                    :key="child.id"
-                    :href="route('daycares.children.show', {daycare: daycare.id, child: child.id})"
-                >
-                    <div class="badge absolute top-2 left-2 size-4 rounded-full"
+            <section class="daycares" >
+                <template v-if="filteredChildren.length === 0">
+                    <p class="text-center text-gray-500">Aucune enfant trouvée</p>
+                </template>
+                
+                <div class="grid grid-cols-3 gap-2">
+                    <Link 
+                        class="child aspect-square border shadow flex flex-col justify-between items-center p-2 relative rounded" 
+                        v-for="(child, index) in filteredChildren"
+                        :key="child.id"
+                        :href="route('daycares.children.show', {daycare: daycare.id, child: child.id})"
+                        >
+                        <div class="badge absolute top-2 left-2 size-4 rounded-full"
                         :class="[child.sexe == 'male' ? 'bg-sky-500' : 'bg-pink-500']"></div>
-                    
-                    <div class="avatar self-center size-16 rounded-full border overflow-hidden">
-                        <img :src="child.avatar || 'ok'" alt="" class="size-full object-cover">
-                    </div>
-                    
-                    <span class="font-semibold">{{  child.first_name }}</span>
-                </Link>
+                        
+                        <div class="avatar self-center size-16 rounded-full border overflow-hidden">
+                            <img :src="child.avatar || 'ok'" alt="" class="size-full object-cover">
+                        </div>
+                        
+                        <span class="font-semibold">{{  child.first_name }}</span>
+                    </Link>
+                </div>
             </section>
-
-
-            {{  filters }}
         </div>
     </AppLayout>
 </template>
