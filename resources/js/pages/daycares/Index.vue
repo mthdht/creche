@@ -1,3 +1,33 @@
+<script setup lang="ts">
+import AppLayout from '@/layouts/AppLayout.vue';
+import { type BreadcrumbItem, type Daycare } from '@/types';
+import { Head, Link } from '@inertiajs/vue3';
+import { Baby, Plus, Search, Store, UserPlus } from 'lucide-vue-next';
+import { reactive, computed } from 'vue';
+import Select from '@/components/Select.vue';
+
+const props = defineProps<{
+    daycares: Daycare[];
+}>();
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Dashboard',
+        href: '/dashboard',
+    },
+];
+
+const filters = reactive({
+    search: '',
+    sort: ''
+});
+
+const filteredDaycares = computed(() => {
+    return props.daycares
+        .filter(daycare => daycare.name.toLowerCase().includes(filters.search.toLowerCase()))
+})
+</script>
+
 <template>
     <Head title="Mes Crèches" />
 
@@ -40,9 +70,10 @@
 
             <section class="daycares space-y-3" >
                 <Link 
-                    :href="'daycares/' + daycare.id" 
+                    :href="route('daycares.show', {id: daycare.id})" 
                     class="block daycare border shadow p-4 relative rounded space-y-2 bg-white" 
                     v-for="(daycare, index) in filteredDaycares"
+                    :key="index"
                 >
                     <p class="font-semibold">
                         {{  daycare.name }}
@@ -57,35 +88,3 @@
         </div>
     </AppLayout>
 </template>
-
-<script setup lang="ts">
-import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem, type Daycare } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
-import { Baby, Plus, Search, Store, UserPlus } from 'lucide-vue-next';
-import { reactive, computed } from 'vue';
-import Select from '@/components/Select.vue';
-
-const props = defineProps<{
-    daycares: Daycare[];
-}>();
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-];
-
-
-
-const filters = reactive({
-    search: '',
-    sort: ''
-});
-
-const filteredDaycares = computed(() => {
-    return props.daycares
-        .filter(daycare => daycare.name.toLowerCase().includes(filters.search.toLowerCase()))
-})
-</script>

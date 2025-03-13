@@ -55,7 +55,7 @@ const filteredChildren = computed(() => {
                     <Store class="size-8 text-indigo-500"></Store>
                     {{ props.daycare.name}} !
                 </div>
-                <Link :href="'/daycares/' + props.daycare.id + '/edit'">
+                <Link :href="route('daycares.edit', {daycare: props.daycare.id})">
                     <Pencil class="size-8 text-white bg-yellow-500 rounded p-1"></Pencil>
                 </Link>
             </h2>
@@ -98,7 +98,8 @@ const filteredChildren = computed(() => {
                 <Link 
                     class="child aspect-square border shadow flex flex-col justify-between items-center p-2 relative rounded" 
                     v-for="(child, index) in filteredChildren"
-                    :href="'/daycares/' + daycare.id + '/children/' + child.id"
+                    :key="child.id"
+                    :href="route('daycares.children.show', {daycare: daycare.id, child: child.id})"
                 >
                     <div class="badge absolute top-2 left-2 size-4 rounded-full"
                         :class="[child.sexe == 'male' ? 'bg-sky-500' : 'bg-pink-500']"></div>

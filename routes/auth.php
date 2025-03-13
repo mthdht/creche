@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DaycareController;
+use App\Http\Controllers\ChildController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -56,7 +57,7 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
     
     Route::resource('daycares', DaycareController::class);
-    Route::resource('daycares.children', ChildrenController::class);
+    Route::resource('daycares.children', ChildController::class);
 
 
 });
