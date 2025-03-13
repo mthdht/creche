@@ -32,15 +32,15 @@ const filteredDaycares = computed(() => {
     <Head title="Mes Crèches" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="space-y-4 p-4 bg-slate-50 h-full">
+        <div class="space-y-4">
             <h2 class="font-semibold text-xl flex justify-between">
                 <div class="flex gap-3 items-center">
                     <Store class="size-7 text-indigo-500"></Store>
                     Gerer les crèches !
                 </div>
-                <button class="bg-emerald-500 p-1 rounded shadow">
+                <Link :href="route('daycares.create')" class="bg-emerald-500 p-1 rounded shadow active:bg-emerald-600 transition-colors">
                     <Plus class="size-7 text-white"></Plus>
-                </button>
+                </Link>
             </h2>
 
 
@@ -49,7 +49,7 @@ const filteredDaycares = computed(() => {
                     <Search class="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400"></Search>
                     <input 
                         type="text" 
-                        class="w-full rounded border border-gray-200 p-2 pl-10" 
+                        class="w-full rounded-lg border border-gray-200 p-2 pl-10 bg-white" 
                         placeholder="Rechercher une crèche"
                         v-model="filters.search">
                 </div>
@@ -69,9 +69,13 @@ const filteredDaycares = computed(() => {
             </section> -->
 
             <section class="daycares space-y-3" >
-                <Link 
+                <template v-if="filteredDaycares.length === 0">
+                    <p class="text-center text-gray-500">Aucune crèche trouvée</p>
+                </template>
+
+                <Link v-else
                     :href="route('daycares.show', {id: daycare.id})" 
-                    class="block daycare border shadow p-4 relative rounded space-y-2 bg-white" 
+                    class="block daycare border shadow-sm p-4 relative rounded space-y-2 bg-white" 
                     v-for="(daycare, index) in filteredDaycares"
                     :key="index"
                 >

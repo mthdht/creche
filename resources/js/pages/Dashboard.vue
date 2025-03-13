@@ -19,7 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="Dashboard" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="space-y-4 p-4 bg-slate-50 h-full">
+        <div class="space-y-4">
             <h2 class="font-semibold text-xl flex gap-3">
                 <Hand class="size-7 text-indigo-500"></Hand>
                 Welcome {{ user.profile.first_name }} {{ user.profile.last_name }}!

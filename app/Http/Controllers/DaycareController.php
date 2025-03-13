@@ -25,7 +25,7 @@ class DaycareController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('daycares/Create');
     }
 
     /**

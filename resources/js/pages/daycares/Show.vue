@@ -49,14 +49,14 @@ const filteredChildren = computed(() => {
     <Head :title="props.daycare.name" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="space-y-4 p-4 bg-slate-50 h-full">
+        <div class="space-y-4">
             <h2 class="font-semibold text-xl flex justify-between gap-3">
                 <div class="flex gap-3">
                     <Store class="size-8 text-indigo-500"></Store>
                     {{ props.daycare.name}} !
                 </div>
                 <Link :href="route('daycares.edit', {daycare: props.daycare.id})">
-                    <Pencil class="size-8 text-white bg-yellow-500 rounded p-1"></Pencil>
+                    <Pencil class="size-8 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
                 </Link>
             </h2>
 
