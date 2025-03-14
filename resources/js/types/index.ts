@@ -65,5 +65,7 @@ export interface Child {
     sexe: string;
     birth_date: string;
     avatar: string | null;
+    guardians: Array<User>;
 }
+
 export type BreadcrumbItemType = BreadcrumbItem;
