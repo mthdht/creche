@@ -116,9 +116,9 @@ const filteredChildren = computed(() => {
                     placeholder="Trier par" class="bg-white grow"
                 ></Select>
 
-                <button class="bg-emerald-500 px-3 py-1 rounded shadow">
+                <Link :href="route('daycares.children.create', {daycare: daycare.id})" class="bg-emerald-500 px-3 py-1 rounded shadow">
                     <UserPlus class="size-7 text-white"></UserPlus>
-                </button>
+                </Link>
             </section>
 
             <section class="daycares" >
@@ -134,7 +134,7 @@ const filteredChildren = computed(() => {
                         :href="route('daycares.children.show', {daycare: daycare.id, child: child.id})"
                         >
                         <div class="badge absolute top-2 left-2 size-4 rounded-full"
-                        :class="[child.sexe == 'male' ? 'bg-sky-500' : 'bg-pink-500']"></div>
+                        :class="[child.sexe == 'male' ? 'bg-sky-500' : 'bg-pink-500']">{{  child.sexe }}</div>
                         
                         <div class="avatar self-center size-16 rounded-full border overflow-hidden">
                             <img :src="child.avatar || 'ok'" alt="" class="size-full object-cover">

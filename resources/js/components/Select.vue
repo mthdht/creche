@@ -1,6 +1,10 @@
 <template>
     <div class="select-wrapper relative">
-        <button class="select h-full px-3 py-1 rounded border flex justify-between items-center font-semibold shadow w-full cursor-pointer focus:ring focus-ring-sky-500" @click="showOptions = !showOptions">
+        <button 
+            class="select h-full px-3 py-1 rounded border flex justify-between items-center font-semibold shadow w-full cursor-pointer focus:ring focus-ring-sky-500" 
+            @click="showOptions = !showOptions"
+            type="button"
+        >
             <p>{{  options.find(option => option.value == model)?.label || props.placeholder }}</p>
             <ChevronDown class="size-5 stroke-2"></ChevronDown>
         </button>
