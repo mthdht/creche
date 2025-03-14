@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guardian;
+use App\Models\Child;
+use App\Models\Daycare;
 use App\Http\Requests\StoreGuardianRequest;
 use App\Http\Requests\UpdateGuardianRequest;
+use Inertia\Inertia;
 
 class GuardianController extends Controller
 {
@@ -19,9 +22,12 @@ class GuardianController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Daycare $daycare, Child $child)
     {
-        //
+        return Inertia::render('guardians/Create', [
+            'child' => $child,
+            'daycare' => $daycare
+        ]);
     }
 
     /**

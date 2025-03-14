@@ -16,15 +16,11 @@ const props = defineProps<{
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Daycares',
+        title: 'Crèches',
         href: '/daycares',
     },
     {
         title: props.daycare.name,
-        href: route('daycares.show', {daycare: props.daycare.id}),
-    },
-    {
-        title: 'Enfants',
         href: route('daycares.show', {daycare: props.daycare.id}),
     },
     {
@@ -123,7 +119,7 @@ const activeTab = ref('infos')
 
                         <CollapsibleContent class="border flex flex-col gap-4">
                             <div class="text-center py-4" v-if="child.guardians.length == 0">
-                                Aucun parents enregistré !
+                                Aucun tuteur enregistré !
                             </div>
 
                             <div class="guardians" v-else>
@@ -131,10 +127,10 @@ const activeTab = ref('infos')
                             </div>
 
                             <Link 
-                                href="route('daycares.children.guardians.create', {daycare: props.daycare.id, child: props.child.id})" 
+                                :href="route('daycares.children.guardians.create', {daycare: props.daycare.id, child: props.child.id})" 
                                 class="border rounded px-3 py-2 self-center mb-4"
                             >
-                                Ajouter un parent
+                                Ajouter un tuteur
                             </Link>
                         </CollapsibleContent>
                     </Collapsible>

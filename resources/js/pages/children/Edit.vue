@@ -22,8 +22,8 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('daycares.show', {daycare: props.daycare.id}),
     },
     {
-        title: 'Enfants',
-        href: route('daycares.show', {daycare: props.daycare.id}),
+        title: props.child.first_name,
+        href: route('daycares.children.show', {daycare: props.daycare.id, child: props.child.id}),
     },
     {
         title: 'Editer',

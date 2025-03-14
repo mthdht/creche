@@ -9,7 +9,7 @@ import Select from '@/components/Select.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Daycares',
+        title: 'Crèches',
         href: '/daycares',
     },
     {

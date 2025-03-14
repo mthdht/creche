@@ -17,11 +17,11 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/daycares',
     },
     {
-        title: 'Enfants',
-        href: route('daycares.children.index', {daycare: props.daycare.id}),
+        title: props.daycare.name,
+        href: route('daycares.show', {daycare: props.daycare.id}),
     },
     {
-        title: 'Créer',
+        title: 'créer un enfant',
         href: route('daycares.children.create', {daycare: props.daycare.id}),
     },
     

@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import InputError from '@/components/InputError.vue';
-import { type BreadcrumbItem, type Daycare } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
+import { type Child, type BreadcrumbItem, type Daycare } from '@/types';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import { Store, } from 'lucide-vue-next';
+import { reactive, computed } from 'vue';
+import Select from '@/components/Select.vue';
 
 const props = defineProps<{
     daycare: Daycare;
+    child: Child
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -19,65 +22,71 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('daycares.show', {daycare: props.daycare.id}),
     },
     {
-        title: 'Editer',
-        href: route("daycares.edit", {daycare: props.daycare.id}),
+        title: props.child.first_name,
+        href: route('daycares.children.show', {daycare: props.daycare.id, child: props.child.id}),
+    },
+    {
+        title: 'Ajouter un tuteur',
+        href: '/daycares/create'
     },
 ];
 
 const form = useForm({
-    name: props.daycare.name,
-    address: props.daycare.address,
-    email: props.daycare.email,
-    phone: props.daycare.phone,
+    last_name: '',
+    first_name: '',
+    email: '',
+    address: '',
+    phone: '',
+    relationship: ''
 });
 
 const submit = () => {
-    form.put(route('daycares.update', {daycare: props.daycare.id}));
+    form.post(route('daycares.children.guardians.store', {daycare: props.daycare.id, child: props.child.id}));
 };
 
 </script>
 
 <template>
-    <Head title="Modification d'une crèche" />
+    <Head title="Création d'une crèche" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="space-y-4">
             <h2 class="font-semibold text-xl flex justify-between gap-3">
                 <div class="flex gap-3">
                     <Store class="size-8 text-indigo-500"></Store>
-                    Modifier une crèche    
+                    Ajouter un tuteur à {{  props.child.first_name }}    
                 </div>
             </h2>
 
             <form @submit.prevent="submit" class="flex flex-col gap-6">
                 <div class="form-control space-y-2">
-                    <label for="name" class="font-semibold">Nom de la crèche</label>
+                    <label for="last_name" class="font-semibold">Nom</label>
                     <input 
                         type="text" 
-                        name="name" 
-                        id="name" 
+                        name="last_name" 
+                        id="last_name" 
                         class="w-full rounded-lg border border-gray-200 p-2" 
                         placeholder="Crèche Patronille"
-                        v-model="form.name"
+                        v-model="form.last_name"
                         required
                         tabindex="1"
                     >
-                    <InputError :message="form.errors.name" />
+                    <InputError :message="form.errors.last_name" />
                 </div>
 
                 <div class="form-control space-y-2">
-                    <label for="address" class="font-semibold">Adresse</label>
+                    <label for="first_name" class="font-semibold">Prénom</label>
                     <input 
                         type="text" 
-                        name="address" 
-                        id="address" 
+                        name="first_name" 
+                        id="first_name" 
                         class="w-full rounded-lg border border-gray-200 p-2" 
                         placeholder="123 rue des fleurs"
-                        v-model="form.address"
+                        v-model="form.first_name"
                         required
                         tabindex="2"
                     >
-                    <InputError :message="form.errors.address" />
+                    <InputError :message="form.errors.first_name" />
                 </div>
 
                 <div class="form-control space-y-2">
@@ -109,9 +118,30 @@ const submit = () => {
                     <InputError :message="form.errors.phone" />
                 </div>
 
-                <Button type="submit" class="mt-4 bg-emerald-500 px-4 py-2 self-center" :tabindex="5" :disabled="form.processing">
+                <div class="form-control space-y-2">
+                    <label for="phone" class="font-semibold">Relation avec {{ props.child.first_name }}</label>
+
+                    <Select 
+                        placeholder="Choisir une relation"
+                        name="relationship" 
+                        id="relationship" 
+                        class="w-full rounded-lg border border-gray-200" 
+                        v-model="form.relationship"
+                        tabindex="5"
+                        required
+                        :options="[
+                            {value: 'parent', label: 'Parent'},
+                            {value: 'grandparent', label: 'Grandparent'},
+                            {value: 'legalGuardian', label: 'Tuteur légal'},
+                            {value: 'other', label: 'Autre'},
+                        ]"
+                    ></Select>
+                    <InputError :message="form.errors.relationship" />
+                </div>
+
+                <Button type="submit" class="mt-4 w-full" :tabindex="5" :disabled="form.processing">
                     <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                    Modifier la crèche
+                    Créer la crèche
                 </Button>
             </form>
             

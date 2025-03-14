@@ -14,12 +14,12 @@ const props = defineProps<{
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Daycares',
+        title: 'Crèches',
         href: '/daycares',
     },
     {
         title: props.daycare.name,
-        href: '/daycares/' + props.daycare.id,
+        href: route('daycares.show', {daycare: props.daycare.id}),
     },
 ];
 
