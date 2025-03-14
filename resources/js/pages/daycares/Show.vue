@@ -5,6 +5,8 @@ import { Head, Link } from '@inertiajs/vue3';
 import { Baby, Locate, Pencil, Search, Store, Trash, UserPlus } from 'lucide-vue-next';
 import { reactive, computed } from 'vue';
 import Select from '@/components/Select.vue';
+import { Dialog, DialogTrigger, DialogContent,  } from '@/components/ui/dialog';
+import DialogClose from '@/components/ui/dialog/DialogClose.vue';
 
 const props = defineProps<{
     daycare: Daycare;
@@ -43,6 +45,8 @@ const filteredChildren = computed(() => {
         })
 });
 
+
+
 </script>
 
 <template>
@@ -60,9 +64,25 @@ const filteredChildren = computed(() => {
                         <Pencil class="size-8 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
                     </Link>
 
-                    <Link :href="route('daycares.destroy', {daycare: props.daycare.id})" method="delete">
-                        <Trash class="size-8 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
-                    </Link>
+                    
+                    <Dialog>
+                        <DialogTrigger>
+                            <Trash class="size-8 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <p>Êtes-vous sûr de vouloir supprimer cette crèche ?</p>
+                            <div class="flex gap-2 justify-end">
+                                <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
+                                <Link 
+                                    :href="route('daycares.destroy', {daycare: props.daycare.id})" 
+                                    method="delete"
+                                    class="bg-red-500 text-white px-3 py-2 rounded"
+                                >
+                                    Supprimer
+                                </Link> 
+                            </div>
+                        </DialogContent>
+                    </Dialog>
                 </div>
 
             </h2>
