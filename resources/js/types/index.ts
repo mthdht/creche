@@ -45,7 +45,7 @@ interface UserProfile {
     sexe: string;
     birth_date?: string;
     avatar?: string;
-    relationship?: string;
+    relationship: string;
 }
 
 export interface Daycare {

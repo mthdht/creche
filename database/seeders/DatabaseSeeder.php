@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
         $me = User::create([
             'name' => 'Dehondt Matthieu',
             'email' => 'mthdht@gmail.com',
@@ -41,18 +40,5 @@ class DatabaseSeeder extends Seeder
                                         ->hasIllnesses(1)
                                         ->hasMedications(2))
                                     ->hasAdditionalNotes(2))->create());
-
-        User::factory(3)
-            ->hasProfile(1, ['role' => 'professional'])
-            ->has(Daycare::factory(2)
-                ->has(Child::factory(5)
-                    ->has(User::factory(2)
-                        ->hasProfile(1,['role' => 'guardian']), 'guardians')
-                    ->has(Health::factory()
-                        ->hasAllergies(3)
-                        ->hasIllnesses(1)
-                        ->hasMedications(2))
-                    ->hasAdditionalNotes(2)))
-            ->create();
     }
 }

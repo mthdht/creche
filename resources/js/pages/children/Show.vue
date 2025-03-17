@@ -31,6 +31,21 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const activeTab = ref('infos')
 
+const relationship = (relation: any) => {
+    switch (relation) {
+        case 'father':
+            return 'Père';
+        case 'mother':
+            return 'Mère';
+        case 'guardian':
+            return 'Tuteur';
+        case 'other':
+            return 'Autre';
+        default:
+            return 'Autre';
+    }
+}
+
 </script>
 
 <template>
@@ -111,19 +126,34 @@ const activeTab = ref('infos')
                 leave-to-class="opacity-0 translate-y-2"
             >
                 <template v-if="activeTab === 'infos'">
-                    <Collapsible class="rounded">
+                    <Collapsible class="rounded ">
                         <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center">
                             <span>Parents</span>
                             <ChevronDown class="w-6 h-6" />
                         </CollapsibleTrigger>
 
-                        <CollapsibleContent class="border flex flex-col gap-4">
+                        <CollapsibleContent class="flex flex-col data-[state=open]:border">
                             <div class="text-center py-4" v-if="child.guardians.length == 0">
                                 Aucun tuteur enregistré !
                             </div>
-
-                            <div class="guardians" v-else>
-
+                            
+                            <div class="guardians px-4 mt-4" v-else v-for="guardian in child.guardians" :key="guardian.id">
+                                <div class="p-4 rounded border">
+                                    <p class="flex justify-between items-center">
+                                        {{ guardian.name }}
+                                        <span class="border px-2 py-1 rounded-full">{{ relationship(guardian.profile.relationship) }}</span>
+                                    </p>
+                                    
+                                    <p class="text-sm">
+                                        <span class="font-semibold">Email:</span> 
+                                        <span>{{ guardian.email }}</span>
+                                    </p>
+                                    
+                                    <p class="text-sm">
+                                        <span class="font-semibold">Tél: </span> 
+                                        <span>{{ guardian.profile.phone || 'Non renseigné' }}</span>
+                                    </p>
+                                </div>
                             </div>
 
                             <Link 
@@ -137,7 +167,6 @@ const activeTab = ref('infos')
                 </template>
 
             </Transition>
-            {{  child }}
         </div>
     </AppLayout>
 </template>

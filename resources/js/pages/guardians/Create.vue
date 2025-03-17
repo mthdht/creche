@@ -2,9 +2,8 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import InputError from '@/components/InputError.vue';
 import { type Child, type BreadcrumbItem, type Daycare } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { Store, } from 'lucide-vue-next';
-import { reactive, computed } from 'vue';
+import { Head, useForm } from '@inertiajs/vue3';
+import { Store } from 'lucide-vue-next';
 import Select from '@/components/Select.vue';
 
 const props = defineProps<{
@@ -130,8 +129,9 @@ const submit = () => {
                         tabindex="5"
                         required
                         :options="[
-                            {value: 'parent', label: 'Parent'},
-                            {value: 'grandparent', label: 'Grandparent'},
+                            {value: 'mother', label: 'Mère'},
+                            {value: 'father', label: 'Père'},
+                            {value: 'grandparent', label: 'Grand parent'},
                             {value: 'legalGuardian', label: 'Tuteur légal'},
                             {value: 'other', label: 'Autre'},
                         ]"
