@@ -21,6 +21,7 @@ class IllnessFactory extends Factory
             'health_id' => Health::factory(),
             'name' => $this->faker->randomElement(['Asthme', 'Diabète', 'Epilepsie', 'Rhumatisme']),
             'description' => $this->faker->sentence(),
+            'note' => $this->faker->sentence(),
         ];
     }
 }

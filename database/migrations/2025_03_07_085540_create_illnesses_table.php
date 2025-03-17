@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('health_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->text('description');
+            $table->text('note')->nullable(); // Note éventuelle
             $table->timestamps();
         });
     }

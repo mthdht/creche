@@ -25,9 +25,6 @@ class ProfileFactory extends Factory
             'address' => $this->faker->optional()->address,
             'role' => $this->faker->randomElement(['professional', 'guardian']),
             'relationship' => fn ($attrs) => $attrs['role'] === 'guardian' ? $this->faker->randomElement(['mère', 'père', 'tuteur']) : null,
-            'birth_date' => $this->faker->optional()->date,
-            'sexe' => $this->faker->randomElement(['male', 'female']),
-            'avatar' => $this->faker->optional()->imageUrl(200, 200, 'people'),
         ];
     }
 }
