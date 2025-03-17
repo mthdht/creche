@@ -61,7 +61,7 @@ class GuardianController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $guardian)
+    public function edit(Daycare $daycare, Child $child, User $guardian)
     {
         return Inertia::render('guardians/Edit', [
             'child' => $child,
@@ -73,9 +73,14 @@ class GuardianController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGuardianRequest $request, Guardian $guardian)
+    public function update(UpdateGuardianRequest $request, Daycare $daycare, Child $child, User $guardian)
     {
-        //
+        $guardian->update([
+            'name' => $request->last_name . ' ' . $request->first_name,
+            'email' => $request->email,
+        ]);
+
+        $guardian->profile()->update($request->except(['name', 'email']));
     }
 
     /**

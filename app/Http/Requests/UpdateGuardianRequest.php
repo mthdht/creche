@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateGuardianRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateGuardianRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->profile->role === 'professional';
     }
 
     /**
@@ -22,7 +23,10 @@ class UpdateGuardianRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'phone' => ['string', 'max:255'],
         ];
     }
 }

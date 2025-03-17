@@ -126,7 +126,7 @@ const relationship = (relation: any) => {
                 leave-to-class="opacity-0 translate-y-2"
             >
                 <template v-if="activeTab === 'infos'">
-                    <Collapsible class="rounded ">
+                    <Collapsible class="rounded " open>
                         <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center">
                             <span>Parents</span>
                             <ChevronDown class="w-6 h-6" />
@@ -145,7 +145,7 @@ const relationship = (relation: any) => {
                                     </p>
                                     
                                     <p class="text-sm">
-                                        <span class="font-semibold">Email:</span> 
+                                        <span class="font-semibold">Email: </span> 
                                         <span>{{ guardian.email }}</span>
                                     </p>
 
