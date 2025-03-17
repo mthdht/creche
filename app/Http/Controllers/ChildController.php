@@ -47,7 +47,7 @@ class ChildController extends Controller
     {
         return Inertia::render('children/Show', [
             'daycare' => $daycare,
-            'child' => $child
+            'child' => $child->load('guardians')
         ]);
     }
 

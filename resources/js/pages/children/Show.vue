@@ -7,7 +7,7 @@ import DialogClose from '@/components/ui/dialog/DialogClose.vue';
 import { calculateAge } from '@/lib/utils';
 import { ref } from 'vue';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger} from '@/components/ui/collapsible';
-import { ChevronDown } from 'lucide-vue-next';
+import { ChevronDown, Trash, Pencil } from 'lucide-vue-next';
 
 const props = defineProps<{
     daycare: Daycare;
@@ -148,17 +148,45 @@ const relationship = (relation: any) => {
                                         <span class="font-semibold">Email:</span> 
                                         <span>{{ guardian.email }}</span>
                                     </p>
-                                    
-                                    <p class="text-sm">
-                                        <span class="font-semibold">Tél: </span> 
-                                        <span>{{ guardian.profile.phone || 'Non renseigné' }}</span>
-                                    </p>
+
+                                    <div class="flex justify-between">
+                                        <p class="text-sm">
+                                            <span class="font-semibold">Tél: </span> 
+                                            <span>{{ guardian.profile.phone || 'Non renseigné' }}</span>
+                                        </p>
+
+                                        <div class="actions flex gap-2 items-start">
+                                            <Link :href="route('daycares.children.guardians.edit', {daycare: props.daycare.id, child: props.child.id, guardian: guardian.id})">
+                                                <Pencil class="size-6 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
+                                            </Link>
+
+                                            
+                                            <Dialog>
+                                                <DialogTrigger>
+                                                    <Trash class="size-6 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
+                                                </DialogTrigger>
+                                                <DialogContent>
+                                                    <p>Êtes-vous sûr de vouloir supprimer ce tuteur ?</p>
+                                                    <div class="flex gap-2 justify-end">
+                                                        <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
+                                                        <Link 
+                                                            :href="route('daycares.children.guardians.destroy', {daycare: props.daycare.id, child: props.child.id, guardian: guardian.id})" 
+                                                            method="delete"
+                                                            class="bg-red-500 text-white px-3 py-2 rounded"
+                                                        >
+                                                            Supprimer
+                                                        </Link> 
+                                                    </div>
+                                                </DialogContent>
+                                            </Dialog>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <Link 
                                 :href="route('daycares.children.guardians.create', {daycare: props.daycare.id, child: props.child.id})" 
-                                class="border rounded px-3 py-2 self-center mb-4"
+                                class="border rounded px-3 py-2 self-center my-4"
                             >
                                 Ajouter un tuteur
                             </Link>

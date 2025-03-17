@@ -53,7 +53,7 @@ class GuardianController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Guardian $guardian)
+    public function show(User $guardian)
     {
         //
     }
@@ -61,9 +61,13 @@ class GuardianController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Guardian $guardian)
+    public function edit(User $guardian)
     {
-        //
+        return Inertia::render('guardians/Edit', [
+            'child' => $child,
+            'daycare' => $daycare,
+            'guardian' => $guardian
+        ]);
     }
 
     /**
@@ -77,8 +81,10 @@ class GuardianController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Guardian $guardian)
+    public function destroy(Daycare $daycare, Child $child, User $guardian, )
     {
-        //
+        $guardian->delete();
+
+        return redirect()->back();
     }
 }
