@@ -66,6 +66,26 @@ export interface Child {
     birth_date: string;
     avatar: string | null;
     guardians: Array<User>;
+    health: Health,
+    illnesses: Illness[]
+}
+
+export interface Health {
+    illnesses: Illness[],
+    Allergies: Allergy[]
+}
+
+export interface Illness {
+    id: number;
+    name: string
+    description: string
+    note?: string
+}
+
+export interface Allergy {
+    name: string,
+    severity: 'low' | 'medium' | 'high',
+    description: string
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;

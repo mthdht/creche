@@ -96,6 +96,8 @@ class GuardianController extends Controller
             ]);
     
             $guardian->profile()->update($request->except(['name', 'email']));
+
+            return redirect()->route('daycares.children.show', [$daycare, $child]);
         }
 
         return back();

@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('daycares', DaycareController::class);
     Route::resource('daycares.children', ChildController::class);
     Route::resource('daycares.children.guardians', GuardianController::class);
+    Route::resource('daycares.children.illnesses', IllnessesController::class);
 
 
 });

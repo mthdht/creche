@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem, type Daycare, type Child } from '@/types';
+import { type BreadcrumbItem, type Daycare, type Child, type Health } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { Dialog, DialogTrigger, DialogContent,  } from '@/components/ui/dialog';
 import DialogClose from '@/components/ui/dialog/DialogClose.vue';
 import { calculateAge } from '@/lib/utils';
 import { ref } from 'vue';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger} from '@/components/ui/collapsible';
-import { ChevronDown, Trash, Pencil } from 'lucide-vue-next';
+import { ChevronDown, Trash, Pencil, Info } from 'lucide-vue-next';
 
 const props = defineProps<{
     daycare: Daycare;
@@ -125,11 +125,11 @@ const relationship = (relation: any) => {
                 enter-from-class="opacity-0 -translate-y-2"
                 leave-to-class="opacity-0 translate-y-2"
             >
-                <template v-if="activeTab === 'infos'">
-                    <Collapsible class="rounded " open>
+                <section v-if="activeTab === 'infos'" class="space-y-4">
+                    <Collapsible class="rounded " defaultOpen>
                         <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center">
                             <span>Parents</span>
-                            <ChevronDown class="w-6 h-6" />
+                            <ChevronDown class="w-6 h-6"></ChevronDown>
                         </CollapsibleTrigger>
 
                         <CollapsibleContent class="flex flex-col data-[state=open]:border">
@@ -142,6 +142,7 @@ const relationship = (relation: any) => {
                                     <p class="flex justify-between items-center">
                                         {{ guardian.name }}
                                         <span class="border px-2 py-1 rounded-full">{{ relationship(guardian.profile.relationship) }}</span>
+
                                     </p>
                                     
                                     <p class="text-sm">
@@ -192,7 +193,75 @@ const relationship = (relation: any) => {
                             </Link>
                         </CollapsibleContent>
                     </Collapsible>
-                </template>
+
+                    <Collapsible class="rounded ">
+                        <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center">
+                            <span>Maladies</span>
+                            <ChevronDown class="w-6 h-6"></ChevronDown>
+                        </CollapsibleTrigger>
+
+                        <CollapsibleContent class="flex flex-col data-[state=open]:border">
+                            <div class="text-center py-4" v-if="child.illnesses.length == 0">
+                                Aucune maladies enregistré !
+                            </div>
+
+                            
+                            <div class="guardians px-4 mt-4" v-else v-for="illness in child.illnesses" :key="illness.id">
+                                <div class="p-4 rounded border">
+                                    <p class="flex justify-between items-center">
+                                        {{ illness.name }}
+                                    </p>
+                                    
+                                    <p class="text-sm"> 
+                                        {{ illness.description }}
+                                    </p>
+
+                                    <div class="flex justify-between mt-2">
+                                        <p class="text-sm flex items-center gap-4">
+                                            <Info class="size-6"></Info>
+                                            <span>{{ illness.note}}</span>
+                                        </p>
+
+                                        <div class="actions flex gap-2 items-start">
+                                            <Link :href="route('daycares.children.illnesses.edit', {daycare: props.daycare.id, child: props.child.id, illness: illness.id})">
+                                                <Pencil class="size-6 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
+                                            </Link>
+
+                                            
+                                            <Dialog>
+                                                <DialogTrigger>
+                                                    <Trash class="size-6 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
+                                                </DialogTrigger>
+                                                <DialogContent>
+                                                    <p>Êtes-vous sûr de vouloir supprimer cette maladie ?</p>
+                                                    <div class="flex gap-2 justify-end">
+                                                        <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
+                                                        <Link 
+                                                            :href="route('daycares.children.illnesses.destroy', {daycare: props.daycare.id, child: props.child.id, illness: illness.id})" 
+                                                            method="delete"
+                                                            class="bg-red-500 text-white px-3 py-2 rounded"
+                                                        >
+                                                            Supprimer
+                                                        </Link> 
+                                                    </div>
+                                                </DialogContent>
+                                            </Dialog>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <Link 
+                                :href="route('daycares.children.guardians.create', {daycare: props.daycare.id, child: props.child.id})" 
+                                class="border rounded px-3 py-2 self-center my-4"
+                            >
+                                Ajouter un tuteur
+                            </Link>
+                        </CollapsibleContent>
+                    </Collapsible>
+                </section>
+
+
 
             </Transition>
         </div>

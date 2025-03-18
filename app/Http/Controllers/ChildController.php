@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Child;
 use App\Models\Daycare;
+use App\Models\Health;
 use App\Http\Requests\StoreChildRequest;
 use App\Http\Requests\UpdateChildRequest;
 use Inertia\Inertia;
@@ -41,7 +42,9 @@ class ChildController extends Controller
         if (Auth::user()->can('act', $daycare)) {
             $data = $request->validated();
 
+            $health = new Health();
             $child = $daycare->children()->create($data);
+            $child->health()->save($health);
 
             return redirect()->route('daycares.children.show', [$daycare, $child]);
         }
@@ -57,7 +60,7 @@ class ChildController extends Controller
         if (Auth::user()->can('act', $daycare)) {
             return Inertia::render('children/Show', [
                 'daycare' => $daycare,
-                'child' => $child->load('guardians')
+                'child' => $child->load(['guardians', 'health', 'allergies', 'illnesses'])
             ]);
         }
 
