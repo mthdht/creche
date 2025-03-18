@@ -226,44 +226,52 @@ const handle = (event: Event) => {
                                 <div class="p-4 rounded border">
                                     <p class="flex justify-between items-center">
                                         {{ illness.name }}
+                                        <DropdownMenu>
+                                                <DropdownMenuTrigger>
+                                                    <EllipsisVertical class="size-6"></EllipsisVertical>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="end" class="mt-4">
+                                                    <DropdownMenuItem>
+                                                        <Link 
+                                                            :href="route('daycares.children.illnesses.edit', {daycare: props.daycare.id, child: props.child.id, illness: illness.id})"
+                                                            class="flex items-center gap-2 justify-between w-full"
+                                                            >
+                                                            Editer
+                                                            <Pencil class="size-6 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
+                                                        </Link>
+                                                    </DropdownMenuItem>
+
+                                                    <Dialog class="">
+                                                        <DialogTrigger class="flex justify-between w-full px-2 py-1.5 text-sm hover:bg-slate-100">
+                                                            Supprimer
+                                                            <Trash class="size-6 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
+                                                        </DialogTrigger>
+                                                        <DialogContent>
+                                                            <p>Êtes-vous sûr de vouloir supprimer cette maladie ?</p>
+                                                            <div class="flex gap-2 justify-end">
+                                                                <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
+                                                                <Link 
+                                                                    :href="route('daycares.children.illnesses.destroy', {daycare: props.daycare.id, child: props.child.id, illness: illness.id})" 
+                                                                    method="delete"
+                                                                    class="bg-red-500 text-white px-3 py-2 rounded"
+                                                                >
+                                                                    Supprimer
+                                                                </Link> 
+                                                            </div>
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
                                     </p>
                                     
                                     <p class="text-sm"> 
                                         {{ illness.description }}
                                     </p>
 
-                                    <div class="flex justify-between mt-2">
-                                        <p class="text-sm flex items-center gap-4">
-                                            <Info class="size-6"></Info>
-                                            <span>{{ illness.note}}</span>
-                                        </p>
-
-                                        <div class="actions flex gap-2 items-start">
-                                            <Link :href="route('daycares.children.illnesses.edit', {daycare: props.daycare.id, child: props.child.id, illness: illness.id})">
-                                                <Pencil class="size-6 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
-                                            </Link>
-
-                                            
-                                            <Dialog>
-                                                <DialogTrigger>
-                                                    <Trash class="size-6 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
-                                                </DialogTrigger>
-                                                <DialogContent>
-                                                    <p>Êtes-vous sûr de vouloir supprimer cette maladie ?</p>
-                                                    <div class="flex gap-2 justify-end">
-                                                        <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
-                                                        <Link 
-                                                            :href="route('daycares.children.illnesses.destroy', {daycare: props.daycare.id, child: props.child.id, illness: illness.id})" 
-                                                            method="delete"
-                                                            class="bg-red-500 text-white px-3 py-2 rounded"
-                                                        >
-                                                            Supprimer
-                                                        </Link> 
-                                                    </div>
-                                                </DialogContent>
-                                            </Dialog>
-                                        </div>
-                                    </div>
+                                    <p class="text-sm flex items-center gap-4 mt-3" v-if="illness.note">
+                                        <Info class="size-6"></Info>
+                                        <span>{{ illness.note}}</span>
+                                    </p>
                                 </div>
                             </div>
 
