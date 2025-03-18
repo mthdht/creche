@@ -3,11 +3,12 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, type Daycare, type Child, type Health } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 import { Dialog, DialogTrigger, DialogContent,  } from '@/components/ui/dialog';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import DialogClose from '@/components/ui/dialog/DialogClose.vue';
 import { calculateAge } from '@/lib/utils';
 import { ref } from 'vue';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger} from '@/components/ui/collapsible';
-import { ChevronDown, Trash, Pencil, Info } from 'lucide-vue-next';
+import { ChevronDown, Trash, Pencil, Info, EllipsisVertical } from 'lucide-vue-next';
 
 const props = defineProps<{
     daycare: Daycare;
@@ -46,6 +47,10 @@ const relationship = (relation: any) => {
     }
 }
 
+const handle = (event: Event) => {
+    event.preventDefault
+    console.log('ok')
+}
 </script>
 
 <template>
@@ -141,7 +146,45 @@ const relationship = (relation: any) => {
                                 <div class="p-4 rounded border">
                                     <p class="flex justify-between items-center">
                                         {{ guardian.name }}
-                                        <span class="border px-2 py-1 rounded-full">{{ relationship(guardian.profile.relationship) }}</span>
+                                        <div class="flex gap-2 items-center">
+                                            <span class="border px-2 py-1 rounded-full">{{ relationship(guardian.profile.relationship) }}</span>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger>
+                                                    <EllipsisVertical class="size-6"></EllipsisVertical>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="end" class="mt-4">
+                                                    <DropdownMenuItem>
+                                                        <Link 
+                                                            :href="route('daycares.children.guardians.edit', {daycare: props.daycare.id, child: props.child.id, guardian: guardian.id})"
+                                                            class="flex items-center gap-2 justify-between w-full"
+                                                            >
+                                                            Editer
+                                                            <Pencil class="size-6 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
+                                                        </Link>
+                                                    </DropdownMenuItem>
+
+                                                    <Dialog class="">
+                                                        <DialogTrigger class="flex justify-between w-full px-2 py-1.5 text-sm hover:bg-slate-100">
+                                                            Supprimer
+                                                            <Trash class="size-6 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
+                                                        </DialogTrigger>
+                                                        <DialogContent>
+                                                            <p>Êtes-vous sûr de vouloir supprimer ce tuteur ?</p>
+                                                            <div class="flex gap-2 justify-end">
+                                                                <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
+                                                                <Link 
+                                                                    :href="route('daycares.children.guardians.destroy', {daycare: props.daycare.id, child: props.child.id, guardian: guardian.id})" 
+                                                                    method="delete"
+                                                                    class="bg-red-500 text-white px-3 py-2 rounded"
+                                                                >
+                                                                    Supprimer
+                                                                </Link> 
+                                                            </div>
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </div>
 
                                     </p>
                                     
@@ -150,38 +193,11 @@ const relationship = (relation: any) => {
                                         <span>{{ guardian.email }}</span>
                                     </p>
 
-                                    <div class="flex justify-between">
-                                        <p class="text-sm">
-                                            <span class="font-semibold">Tél: </span> 
-                                            <span>{{ guardian.profile.phone || 'Non renseigné' }}</span>
-                                        </p>
+                                    <p class="text-sm">
+                                        <span class="font-semibold">Tél: </span> 
+                                        <span>{{ guardian.profile.phone || 'Non renseigné' }}</span>
+                                    </p>
 
-                                        <div class="actions flex gap-2 items-start">
-                                            <Link :href="route('daycares.children.guardians.edit', {daycare: props.daycare.id, child: props.child.id, guardian: guardian.id})">
-                                                <Pencil class="size-6 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
-                                            </Link>
-
-                                            
-                                            <Dialog>
-                                                <DialogTrigger>
-                                                    <Trash class="size-6 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
-                                                </DialogTrigger>
-                                                <DialogContent>
-                                                    <p>Êtes-vous sûr de vouloir supprimer ce tuteur ?</p>
-                                                    <div class="flex gap-2 justify-end">
-                                                        <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
-                                                        <Link 
-                                                            :href="route('daycares.children.guardians.destroy', {daycare: props.daycare.id, child: props.child.id, guardian: guardian.id})" 
-                                                            method="delete"
-                                                            class="bg-red-500 text-white px-3 py-2 rounded"
-                                                        >
-                                                            Supprimer
-                                                        </Link> 
-                                                    </div>
-                                                </DialogContent>
-                                            </Dialog>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
