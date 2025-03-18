@@ -7,6 +7,7 @@ use App\Models\Daycare;
 use App\Http\Requests\StoreChildRequest;
 use App\Http\Requests\UpdateChildRequest;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class ChildController extends Controller
 {

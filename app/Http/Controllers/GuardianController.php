@@ -10,6 +10,7 @@ use App\Http\Requests\StoreGuardianRequest;
 use App\Http\Requests\UpdateGuardianRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class GuardianController extends Controller
 {
@@ -26,10 +27,14 @@ class GuardianController extends Controller
      */
     public function create(Daycare $daycare, Child $child)
     {
-        return Inertia::render('guardians/Create', [
-            'child' => $child,
-            'daycare' => $daycare
-        ]);
+        if (Auth::user()->can('act', $daycare)) {
+            return Inertia::render('guardians/Create', [
+                'child' => $child,
+                'daycare' => $daycare
+            ]);
+        }
+
+        return back();
     }
 
     /**
@@ -37,17 +42,22 @@ class GuardianController extends Controller
      */
     public function store(StoreGuardianRequest $request, Daycare $daycare, Child $child)
     {
-        $user = User::create([
-            'name' => $request->last_name . ' ' . $request->first_name,
-            'email' => $request->email, 
-            'phone' => $request->phone,
-            'password' => Hash::make($request->last_name . '1234' . $request->first_name)
-        ]);
 
-        $user->profile()->create($request->except('email'));
-        $child->guardians()->save($user);
+        if (Auth::user()->can('act', $daycare)) {
+            $user = User::create([
+                'name' => $request->last_name . ' ' . $request->first_name,
+                'email' => $request->email, 
+                'phone' => $request->phone,
+                'password' => Hash::make($request->last_name . '1234' . $request->first_name)
+            ]);
+    
+            $user->profile()->create($request->except('email'));
+            $child->guardians()->save($user);
+    
+            return redirect()->route('daycares.children.show', [$daycare, $child]);
+        }
 
-        return redirect()->route('daycares.children.show', [$daycare, $child]);
+        return back();
     }
 
     /**
@@ -63,11 +73,15 @@ class GuardianController extends Controller
      */
     public function edit(Daycare $daycare, Child $child, User $guardian)
     {
-        return Inertia::render('guardians/Edit', [
-            'child' => $child,
-            'daycare' => $daycare,
-            'guardian' => $guardian
-        ]);
+        if (Auth::user()->can('act', $daycare)) {
+            return Inertia::render('guardians/Edit', [
+                'child' => $child,
+                'daycare' => $daycare,
+                'guardian' => $guardian
+            ]);
+        }
+
+        return back();
     }
 
     /**
@@ -75,12 +89,16 @@ class GuardianController extends Controller
      */
     public function update(UpdateGuardianRequest $request, Daycare $daycare, Child $child, User $guardian)
     {
-        $guardian->update([
-            'name' => $request->last_name . ' ' . $request->first_name,
-            'email' => $request->email,
-        ]);
+        if (Auth::user()->can('act', $daycare)) {
+            $guardian->update([
+                'name' => $request->last_name . ' ' . $request->first_name,
+                'email' => $request->email,
+            ]);
+    
+            $guardian->profile()->update($request->except(['name', 'email']));
+        }
 
-        $guardian->profile()->update($request->except(['name', 'email']));
+        return back();
     }
 
     /**
@@ -88,8 +106,12 @@ class GuardianController extends Controller
      */
     public function destroy(Daycare $daycare, Child $child, User $guardian, )
     {
-        $guardian->delete();
+        if (Auth::user()->can('act', $daycare)) {
+            $guardian->delete();
 
-        return redirect()->back();
+            return redirect()->back();
+        }
+
+        return back();
     }
 }
