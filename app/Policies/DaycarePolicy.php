@@ -8,6 +8,11 @@ use Illuminate\Auth\Access\Response;
 
 class DaycarePolicy
 {
+
+    public function act(User $user, Daycare $daycare) 
+    {
+        return $daycare->user == $user;
+    }
     /**
      * Determine whether the user can view any models.
      */

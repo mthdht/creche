@@ -23,9 +23,13 @@ class ChildController extends Controller
      */
     public function create(Daycare $daycare)
     {
-        return Inertia::render('children/Create', [
-            'daycare' => $daycare
-        ]);
+        if (Auth::user()->can('act', $daycare)) {
+            return Inertia::render('children/Create', [
+                'daycare' => $daycare
+            ]);
+        }
+
+        return back();
     }
 
     /**
@@ -33,11 +37,15 @@ class ChildController extends Controller
      */
     public function store(StoreChildRequest $request, Daycare $daycare)
     {
-        $data = $request->validated();
+        if (Auth::user()->can('act', $daycare)) {
+            $data = $request->validated();
 
-        $child = $daycare->children()->create($data);
+            $child = $daycare->children()->create($data);
 
-        return redirect()->route('daycares.children.show', [$daycare, $child]);
+            return redirect()->route('daycares.children.show', [$daycare, $child]);
+        }
+
+        return back();
     }
 
     /**
@@ -45,10 +53,14 @@ class ChildController extends Controller
      */
     public function show(Daycare $daycare, Child $child)
     {
-        return Inertia::render('children/Show', [
-            'daycare' => $daycare,
-            'child' => $child->load('guardians')
-        ]);
+        if (Auth::user()->can('act', $daycare)) {
+            return Inertia::render('children/Show', [
+                'daycare' => $daycare,
+                'child' => $child->load('guardians')
+            ]);
+        }
+
+        return back();
     }
 
     /**
@@ -67,11 +79,15 @@ class ChildController extends Controller
      */
     public function update(UpdateChildRequest $request, Daycare $daycare, Child $child)
     {
-        $data = $request->validated();
+        if (Auth::user()->can('act', $daycare)) {
+            $data = $request->validated();
 
-        $child->update($data);
+            $child->update($data);
 
-        return redirect()->route('daycares.children.show', [$daycare, $child]);
+            return redirect()->route('daycares.children.show', [$daycare, $child]);
+        }
+
+        return back();
     }
 
     /**
@@ -79,8 +95,12 @@ class ChildController extends Controller
      */
     public function destroy(Daycare $daycare, Child $child)
     {
-        $child->delete();
+        if (Auth::user()->can('act', $daycare)) {
+            $child->delete();
 
-        return redirect()->route('daycares.show', $daycare);
+            return redirect()->route('daycares.show', $daycare);
+        }
+
+        return back();
     }
 }

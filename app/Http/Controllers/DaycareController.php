@@ -59,7 +59,7 @@ class DaycareController extends Controller
      */
     public function show(Daycare $daycare)
     {
-        if (Auth::user()->can('view', $daycare)) {
+        if (Auth::user()->can('act', $daycare)) {
             return Inertia::render('daycares/Show', [
                 'daycare' => $daycare->load('children'),
             ]);
@@ -73,7 +73,7 @@ class DaycareController extends Controller
      */
     public function edit(Daycare $daycare)
     {
-        if (Auth::user()->can('update', $daycare)) {
+        if (Auth::user()->can('act', $daycare)) {
             return Inertia::render('daycares/Edit', [
                 'daycare' => $daycare->load('children'),
             ]);
@@ -87,7 +87,7 @@ class DaycareController extends Controller
      */
     public function update(UpdateDaycareRequest $request, Daycare $daycare)
     {
-        if (Auth::user()->can('update', $daycare)) {
+        if (Auth::user()->can('act', $daycare)) {
             $data = $request->validated();
         
             $daycare->update($data);
@@ -96,8 +96,7 @@ class DaycareController extends Controller
         }
 
         return back();
-        
-
+    
     }
 
     /**
@@ -105,7 +104,7 @@ class DaycareController extends Controller
      */
     public function destroy(Daycare $daycare)
     {
-        if (Auth::user()->can('delete', $daycare)) {
+        if (Auth::user()->can('act', $daycare)) {
             $daycare->delete();
 
             return redirect()->route('daycares.index');
