@@ -12,8 +12,8 @@ class DaycarePolicy
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
-    {
-        return false;
+    {  
+        return $user->profile->role == 'professional';
     }
 
     /**
@@ -21,7 +21,7 @@ class DaycarePolicy
      */
     public function view(User $user, Daycare $daycare): bool
     {
-        return false;
+        return $daycare->user == $user;
     }
 
     /**
@@ -29,7 +29,7 @@ class DaycarePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->profile->role == 'professional';
     }
 
     /**
@@ -37,7 +37,7 @@ class DaycarePolicy
      */
     public function update(User $user, Daycare $daycare): bool
     {
-        return false;
+        return $daycare->user == $user;
     }
 
     /**
@@ -45,7 +45,7 @@ class DaycarePolicy
      */
     public function delete(User $user, Daycare $daycare): bool
     {
-        return false;
+        return $daycare->user == $user;
     }
 
     /**

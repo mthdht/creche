@@ -20,4 +20,9 @@ class Daycare extends Model
         return $this->hasMany(Child::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

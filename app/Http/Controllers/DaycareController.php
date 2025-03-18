@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDaycareRequest;
 use App\Http\Requests\UpdateDaycareRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\request;
 
 class DaycareController extends Controller
 {
@@ -15,17 +16,26 @@ class DaycareController extends Controller
      */
     public function index()
     {
-        return Inertia::render('daycares/Index', [
-            'daycares' => Auth::user()->daycares->loadCount('children'),
-        ]);
-    }
+        if (Auth::user()->can('viewAny', Daycare::class)) {
+            return Inertia::render('daycares/Index', [
+                'daycares' => Auth::user()->daycares->loadCount('children'),
+            ]);
+        }
 
+        return back();
+        
+    }
+    
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return Inertia::render('daycares/Create');
+        if (Auth::user()->can('create', Daycare::class)) {
+            return Inertia::render('daycares/Create');
+        }
+        
+        return back();
     }
 
     /**
@@ -33,11 +43,15 @@ class DaycareController extends Controller
      */
     public function store(StoreDaycareRequest $request)
     {
-        $data = $request->validated();
+        if (Auth::user()->can('create', Daycare::class)) {
+            $data = $request->validated();
         
-        $daycare = $request->user()->daycares()->create($data);
+            $daycare = $request->user()->daycares()->create($data);
 
-        return redirect()->route('daycares.show', $daycare);
+            return redirect()->route('daycares.show', $daycare);
+        }
+        
+        return back();
     }
 
     /**
@@ -45,9 +59,13 @@ class DaycareController extends Controller
      */
     public function show(Daycare $daycare)
     {
-        return Inertia::render('daycares/Show', [
-            'daycare' => $daycare->load('children'),
-        ]);
+        if (Auth::user()->can('view', $daycare)) {
+            return Inertia::render('daycares/Show', [
+                'daycare' => $daycare->load('children'),
+            ]);
+        }
+
+        return back();
     }
 
     /**
@@ -55,9 +73,13 @@ class DaycareController extends Controller
      */
     public function edit(Daycare $daycare)
     {
-        return Inertia::render('daycares/Edit', [
-            'daycare' => $daycare->load('children'),
-        ]);
+        if (Auth::user()->can('update', $daycare)) {
+            return Inertia::render('daycares/Edit', [
+                'daycare' => $daycare->load('children'),
+            ]);
+        }
+
+        return back();
     }
 
     /**
@@ -65,11 +87,17 @@ class DaycareController extends Controller
      */
     public function update(UpdateDaycareRequest $request, Daycare $daycare)
     {
-        $data = $request->validated();
+        if (Auth::user()->can('update', $daycare)) {
+            $data = $request->validated();
         
-        $daycare->update($data);
+            $daycare->update($data);
+    
+            return redirect()->route('daycares.show', $daycare);
+        }
 
-        return redirect()->route('daycares.show', $daycare);
+        return back();
+        
+
     }
 
     /**
@@ -77,8 +105,12 @@ class DaycareController extends Controller
      */
     public function destroy(Daycare $daycare)
     {
-        $daycare->delete();
+        if (Auth::user()->can('delete', $daycare)) {
+            $daycare->delete();
 
-        return redirect()->route('daycares.index');
+            return redirect()->route('daycares.index');
+        }
+
+        return back();
     }
 }
