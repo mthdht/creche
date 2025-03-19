@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import AppLayout from '@/layouts/AppLayout.vue';
-import InputError from '@/components/InputError.vue';
-import { type BreadcrumbItem, type Daycare } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
+
+import AppLayout from '@/layouts/AppLayout.vue';
+import { type BreadcrumbItem, type Daycare } from '@/types';
+
+import InputError from '@/components/InputError.vue';
 import { Store, } from 'lucide-vue-next';
 
 const props = defineProps<{

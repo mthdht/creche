@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { Head, Link } from '@inertiajs/vue3';
+import { ref } from 'vue';
+
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, type Daycare, type Child, type Health } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
-import { Dialog, DialogTrigger, DialogContent,  } from '@/components/ui/dialog';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import DialogClose from '@/components/ui/dialog/DialogClose.vue';
 import { calculateAge } from '@/lib/utils';
-import { ref } from 'vue';
+
+import { Dialog, DialogTrigger, DialogContent, DialogClose  } from '@/components/ui/dialog';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger} from '@/components/ui/collapsible';
 import { ChevronDown, Trash, Pencil, Info, EllipsisVertical } from 'lucide-vue-next';
 
@@ -124,6 +125,13 @@ const handle = (event: Event) => {
                 </button>
             </section>
 
+            <!--
+                <pre>
+                    
+                    {{  props.child }}
+                </pre>
+                -->
+
             <Transition mode="out-in"
                 enter-active-class="transition duration-200 ease-out"
                 leave-active-class="transition duration-200 ease-in"
@@ -152,7 +160,7 @@ const handle = (event: Event) => {
                                                 <DropdownMenuTrigger>
                                                     <EllipsisVertical class="size-6"></EllipsisVertical>
                                                 </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end" class="mt-4">
+                                                <DropdownMenuContent align="end" class="mt-2">
                                                     <DropdownMenuItem>
                                                         <Link 
                                                             :href="route('daycares.children.guardians.edit', {daycare: props.daycare.id, child: props.child.id, guardian: guardian.id})"
@@ -217,12 +225,12 @@ const handle = (event: Event) => {
                         </CollapsibleTrigger>
 
                         <CollapsibleContent class="flex flex-col data-[state=open]:border">
-                            <div class="text-center py-4" v-if="child.illnesses.length == 0">
+                            <div class="text-center py-4" v-if="child.health.illnesses.length == 0">
                                 Aucune maladies enregistré !
                             </div>
 
                             
-                            <div class="guardians px-4 mt-4" v-else v-for="illness in child.illnesses" :key="illness.id">
+                            <div class="guardians px-4 mt-4" v-else v-for="illness in child.health.illnesses" :key="illness.id">
                                 <div class="p-4 rounded border">
                                     <p class="flex justify-between items-center">
                                         {{ illness.name }}
@@ -230,7 +238,7 @@ const handle = (event: Event) => {
                                                 <DropdownMenuTrigger>
                                                     <EllipsisVertical class="size-6"></EllipsisVertical>
                                                 </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end" class="mt-4">
+                                                <DropdownMenuContent align="end" class="mt-2">
                                                     <DropdownMenuItem>
                                                         <Link 
                                                             :href="route('daycares.children.illnesses.edit', {daycare: props.daycare.id, child: props.child.id, illness: illness.id})"
@@ -276,10 +284,10 @@ const handle = (event: Event) => {
                             </div>
 
                             <Link 
-                                :href="route('daycares.children.guardians.create', {daycare: props.daycare.id, child: props.child.id})" 
+                                :href="route('daycares.children.illnesses.create', {daycare: props.daycare.id, child: props.child.id})" 
                                 class="border rounded px-3 py-2 self-center my-4"
                             >
-                                Ajouter un tuteur
+                                Ajouter une maladie
                             </Link>
                         </CollapsibleContent>
                     </Collapsible>

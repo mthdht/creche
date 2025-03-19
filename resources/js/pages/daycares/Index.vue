@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { reactive, computed } from 'vue';
+import { Head, Link } from '@inertiajs/vue3';
+
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, type Daycare } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
-import { Baby, Plus, Search, Store, UserPlus } from 'lucide-vue-next';
-import { reactive, computed } from 'vue';
-import Select from '@/components/Select.vue';
+
+import { Baby, Plus, Search, Store } from 'lucide-vue-next';
 
 const props = defineProps<{
     daycares: Daycare[];

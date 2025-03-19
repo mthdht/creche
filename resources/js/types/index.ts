@@ -72,7 +72,9 @@ export interface Child {
 
 export interface Health {
     illnesses: Illness[],
-    Allergies: Allergy[]
+    Allergies: Allergy[],
+    mediacations: Medication[],
+    additionalNotes: AdditionalNote[]
 }
 
 export interface Illness {
@@ -86,6 +88,14 @@ export interface Allergy {
     name: string,
     severity: 'low' | 'medium' | 'high',
     description: string
+}
+
+export interface Medication {
+
+}
+
+export interface AdditionalNote {
+    
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;

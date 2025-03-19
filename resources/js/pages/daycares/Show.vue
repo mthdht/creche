@@ -1,12 +1,13 @@
 <script setup lang="ts">
+import { Head, Link } from '@inertiajs/vue3';
+import { reactive, computed } from 'vue';
+
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, type Daycare, type Child } from '@/types';
-import { Head, Link } from '@inertiajs/vue3';
-import { Baby, Locate, Pencil, Search, Store, Trash, UserPlus } from 'lucide-vue-next';
-import { reactive, computed } from 'vue';
+
 import Select from '@/components/Select.vue';
-import { Dialog, DialogTrigger, DialogContent,  } from '@/components/ui/dialog';
-import DialogClose from '@/components/ui/dialog/DialogClose.vue';
+import { Dialog, DialogTrigger, DialogContent, DialogClose  } from '@/components/ui/dialog';
+import { Baby, Locate, Pencil, Search, Store, Trash, UserPlus } from 'lucide-vue-next';
 
 const props = defineProps<{
     daycare: Daycare;
@@ -22,8 +23,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('daycares.show', {daycare: props.daycare.id}),
     },
 ];
-
-
 
 const filters = reactive({
     search: '',

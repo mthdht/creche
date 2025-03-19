@@ -19,6 +19,7 @@ class health extends Model
         'child_id',
         // Allergies, maladies, médicaments et autres informations
     ];
+    protected $with= ['illnesses', 'allergies', 'medications'];
 
     public function child()
     {
@@ -38,11 +39,6 @@ class health extends Model
     public function medications()
     {
         return $this->hasMany(Medication::class);
-    }
-
-    public function additionalNotes()
-    {
-        return $this->hasMany(AdditionalNote::class);
     }
 
 

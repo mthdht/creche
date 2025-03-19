@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DaycareController;
 use App\Http\Controllers\ChildController;
 use App\Http\Controllers\GuardianController;
+use App\Http\Controllers\IllnessController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -60,7 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('daycares', DaycareController::class);
     Route::resource('daycares.children', ChildController::class);
     Route::resource('daycares.children.guardians', GuardianController::class);
-    Route::resource('daycares.children.illnesses', IllnessesController::class);
+    Route::resource('daycares.children.illnesses', IllnessController::class);
 
 
 });

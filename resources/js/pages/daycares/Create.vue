@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { Head, useForm } from '@inertiajs/vue3';
+
 import AppLayout from '@/layouts/AppLayout.vue';
-import InputError from '@/components/InputError.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { Store, } from 'lucide-vue-next';
-import { reactive, computed } from 'vue';
-import Select from '@/components/Select.vue';
+
+import InputError from '@/components/InputError.vue';
+import { Store, LoaderCircle } from 'lucide-vue-next';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

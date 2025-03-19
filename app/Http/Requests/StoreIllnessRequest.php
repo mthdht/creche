@@ -11,7 +11,7 @@ class StoreIllnessRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->profile->role === 'professional';
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreIllnessRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:245'],
+            'description' => ['required', 'string', 'max:245'],
+            'note' => ['string', 'max:245'],
         ];
     }
 }

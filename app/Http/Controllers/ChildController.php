@@ -60,7 +60,7 @@ class ChildController extends Controller
         if (Auth::user()->can('act', $daycare)) {
             return Inertia::render('children/Show', [
                 'daycare' => $daycare,
-                'child' => $child->load(['guardians', 'health', 'allergies', 'illnesses'])
+                'child' => $child->load(['guardians', 'health'])
             ]);
         }
 

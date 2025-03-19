@@ -11,7 +11,7 @@ class Illness extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'child_id'
+        'name', 'description', 'child_id', 'note'
     ];
 
     public function health()

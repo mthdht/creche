@@ -2,15 +2,14 @@
 import { Head, useForm } from '@inertiajs/vue3';
 
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem, type Daycare } from '@/types';
+import { type Child, type BreadcrumbItem, type Daycare } from '@/types';
 
 import InputError from '@/components/InputError.vue';
-import Select from '@/components/Select.vue';
 import { Store, LoaderCircle } from 'lucide-vue-next';
-
 
 const props = defineProps<{
     daycare: Daycare;
+    child: Child
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -23,99 +22,87 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('daycares.show', {daycare: props.daycare.id}),
     },
     {
-        title: 'créer un enfant',
-        href: route('daycares.children.create', {daycare: props.daycare.id}),
+        title: props.child.first_name,
+        href: route('daycares.children.show', {daycare: props.daycare.id, child: props.child.id}),
     },
-    
+    {
+        title: 'Ajouter une maladie',
+        href: route('daycares.children.illnesses.create', {daycare: props.daycare.id, child: props.child.id})
+    },
 ];
 
 const form = useForm({
-    first_name: '',
-    last_name: '',
-    sexe: '',
-    birth_date: '',
+    name: '',
+    description: '',
+    note: ''
 });
 
 const submit = () => {
-    form.post(route('daycares.children.store', {daycare: props.daycare.id}))
+    form.post(route('daycares.children.illnesses.store', {daycare: props.daycare.id, child: props.child.id}));
 };
 
 </script>
 
 <template>
-    <Head title="Création d'un enfant" />
+    <Head title="Création d'une maladie" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="space-y-4">
             <h2 class="font-semibold text-xl flex justify-between gap-3">
                 <div class="flex gap-3">
                     <Store class="size-8 text-indigo-500"></Store>
-                    Créer un enfant    
+                    Ajouter un maladie à {{  props.child.first_name }}    
                 </div>
             </h2>
 
             <form @submit.prevent="submit" class="flex flex-col gap-6">
                 <div class="form-control space-y-2">
-                    <label for="first_name" class="font-semibold">Prénom</label>
+                    <label for="name" class="font-semibold">Nom de la maladie</label>
                     <input 
                         type="text" 
-                        name="first_name" 
-                        id="first_name" 
+                        name="name" 
+                        id="name" 
                         class="w-full rounded-lg border border-gray-200 p-2" 
-                        placeholder="Oscar"
-                        v-model="form.first_name"
+                        placeholder="Asthme"
+                        v-model="form.name"
                         required
                         tabindex="1"
                     >
-                    <InputError :message="form.errors.first_name" />
+                    <InputError :message="form.errors.name" />
                 </div>
 
                 <div class="form-control space-y-2">
-                    <label for="last_name" class="font-semibold">Nom</label>
+                    <label for="descripton" class="font-semibold">Description</label>
                     <input 
                         type="text" 
-                        name="last_name" 
-                        id="last_name" 
+                        name="descripton" 
+                        id="descripton" 
                         class="w-full rounded-lg border border-gray-200 p-2" 
-                        placeholder="Dehondt"
-                        v-model="form.last_name"
+                        placeholder="Problème respiratoire"
+                        v-model="form.description"
                         required
                         tabindex="2"
                     >
-                    <InputError :message="form.errors.last_name" />
+                    <InputError :message="form.errors.description" />
                 </div>
 
                 <div class="form-control space-y-2">
-                    <label for="birth_date" class="font-semibold">Date de naissance</label>
+                    <label for="note" class="font-semibold">Note</label>
                     <input 
-                        type="date" 
-                        name="birth_date" 
-                        id="birth_date" 
+                        type="note" 
+                        name="note" 
+                        id="note" 
                         class="w-full rounded-lg border border-gray-200 p-2" 
-                        placeholder="patronille @gmail.com"
-                        v-model="form.birth_date"
+                        placeholder="Crise souvent le matin!"
+                        v-model="form.note"
                         tabindex="3"
                     >
-                    <InputError :message="form.errors.birth_date" />
-                </div>
-
-                <div class="form-control space-y-2">
-                    <label for="phone" class="font-semibold">Sexe</label>
-                    <Select 
-                        placeholder="Sélectionner le sexe"
-                        v-model="form.sexe" 
-                        :options="[
-                            { value: 'male', label: 'Masculin' },
-                            { value: 'female', label: 'Féminin' },
-                        ]"
-                        tabindex="4"
-                    />
-                    <InputError :message="form.errors.sexe" />
+                    <InputError :message="form.errors.note" />
                 </div>
 
                 <Button type="submit" class="mt-4 w-full" :tabindex="5" :disabled="form.processing">
                     <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                    Ajouter
+                    Créer une maladie
                 </Button>
             </form>
             
