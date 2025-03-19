@@ -11,7 +11,7 @@ class UpdateChildRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->profile->role === 'professional';
     }
 
     /**

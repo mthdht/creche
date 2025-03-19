@@ -52,7 +52,7 @@ const submit = () => {
             <h2 class="font-semibold text-xl flex justify-between gap-3">
                 <div class="flex gap-3">
                     <Store class="size-8 text-indigo-500"></Store>
-                    Modifier la maladie {{  }}    
+                    Modifier la maladie {{ props.illness.name }}    
                 </div>
             </h2>
 

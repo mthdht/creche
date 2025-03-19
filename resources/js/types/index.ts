@@ -67,7 +67,7 @@ export interface Child {
     avatar: string | null;
     guardians: Array<User>;
     health: Health;
-    additional_notes: Additional_note[];
+    additional_notes: AdditionalNote[];
 }
 
 export interface Health {
@@ -98,7 +98,7 @@ export interface Medication {
     note: string;
 }
 
-export interface Additional_note {
+export interface AdditionalNote {
     id: number;
     note: string;
     severity: 'low' | 'medium' | 'high';
