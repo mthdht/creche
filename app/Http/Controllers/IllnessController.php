@@ -46,7 +46,6 @@ class IllnessController extends Controller
                 'description' => $request->description,
                 'note' => $request->note
             ]);
-            dd($illness);
         }
 
         return redirect()->route('daycares.children.show', [$daycare, $child]);
@@ -63,24 +62,46 @@ class IllnessController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Illness $illness)
+    public function edit(Daycare $daycare, Child $child, Illness $illness)
     {
-        //
+        if (Auth::user()->can('act', $daycare)) {
+            return Inertia::render('illnesses/Edit', [
+                'child' => $child,
+                'daycare' => $daycare,
+                'illness' => $illness
+            ]);
+        }
+
+        return back();
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateIllnessRequest $request, Illness $illness)
+    public function update(UpdateIllnessRequest $request, Daycare $daycare, Child $child, Illness $illness)
     {
-        //
+        if (Auth::user()->can('act', $daycare)) {
+            $illness->update([
+                 'name' => $request->name,
+                 'description' => $request->description,
+                 'note' => $request->note
+             ]);
+         }
+ 
+         return redirect()->route('daycares.children.show', [$daycare, $child]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Illness $illness)
+    public function destroy(Daycare $daycare, Child $child, Illness $illness)
     {
-        //
+        if (Auth::user()->can('act', $daycare)) {
+            $illness->delete();
+
+            return redirect()->back();
+        }
+
+        return back();
     }
 }
