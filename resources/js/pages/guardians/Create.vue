@@ -133,7 +133,7 @@ const submit = () => {
                         :options="[
                             {value: 'mother', label: 'Mère'},
                             {value: 'father', label: 'Père'},
-                            {value: 'grandparent', label: 'Grand parent'},
+                            {value: 'grandParent', label: 'Grand parent'},
                             {value: 'legalGuardian', label: 'Tuteur légal'},
                             {value: 'other', label: 'Autre'},
                         ]"

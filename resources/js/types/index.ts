@@ -45,7 +45,7 @@ interface UserProfile {
     sexe: string;
     birth_date?: string;
     avatar?: string;
-    relationship: string;
+    relationship: 'father' | 'mother' | 'grandParent' | 'other';
 }
 
 export interface Daycare {
@@ -72,7 +72,7 @@ export interface Child {
 
 export interface Health {
     illnesses: Illness[],
-    Allergies: Allergy[],
+    allergies: Allergy[],
     mediacations: Medication[],
     additionalNotes: AdditionalNote[]
 }
@@ -85,6 +85,7 @@ export interface Illness {
 }
 
 export interface Allergy {
+    id: number
     name: string,
     severity: 'low' | 'medium' | 'high',
     description: string

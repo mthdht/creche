@@ -48,10 +48,20 @@ const relationship = (relation: any) => {
     }
 }
 
-const handle = (event: Event) => {
-    event.preventDefault
-    console.log('ok')
+const relationshipMap = {
+    father: 'Père',
+    mother: 'Mère',
+    guardian: 'tuteur',
+    other: 'Autre',
+    grandParent: 'grands parents'
 }
+
+const severityMap = {
+    high: 'Elevé',
+    medium: 'normal',
+    low: 'basse'
+}
+
 </script>
 
 <template>
@@ -139,7 +149,7 @@ const handle = (event: Event) => {
                 leave-to-class="opacity-0 translate-y-2"
             >
                 <section v-if="activeTab === 'infos'" class="space-y-4">
-                    <Collapsible class="rounded " defaultOpen>
+                    <Collapsible class="rounded">
                         <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center">
                             <span>Parents</span>
                             <ChevronDown class="w-6 h-6"></ChevronDown>
@@ -155,7 +165,7 @@ const handle = (event: Event) => {
                                     <p class="flex justify-between items-center">
                                         {{ guardian.name }}
                                         <div class="flex gap-2 items-center">
-                                            <span class="border px-2 py-1 rounded-full">{{ relationship(guardian.profile.relationship) }}</span>
+                                            <span class="border px-2 py-1 rounded-full">{{ relationshipMap[guardian.profile.relationship] }}</span>
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger>
                                                     <EllipsisVertical class="size-6"></EllipsisVertical>
@@ -238,6 +248,7 @@ const handle = (event: Event) => {
                                                 <DropdownMenuTrigger>
                                                     <EllipsisVertical class="size-6"></EllipsisVertical>
                                                 </DropdownMenuTrigger>
+
                                                 <DropdownMenuContent align="end" class="mt-2">
                                                     <DropdownMenuItem>
                                                         <Link 
@@ -269,10 +280,10 @@ const handle = (event: Event) => {
                                                         </DialogContent>
                                                     </Dialog>
                                                 </DropdownMenuContent>
-                                            </DropdownMenu>
+                                        </DropdownMenu>
                                     </p>
                                     
-                                    <p class="text-sm"> 
+                                    <p class="text-sm mt-2"> 
                                         {{ illness.description }}
                                     </p>
 
@@ -288,6 +299,80 @@ const handle = (event: Event) => {
                                 class="border rounded px-3 py-2 self-center my-4"
                             >
                                 Ajouter une maladie
+                            </Link>
+                        </CollapsibleContent>
+                    </Collapsible>
+
+                    <Collapsible class="rounded ">
+                        <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center">
+                            <span>Allergies</span>
+                            <ChevronDown class="w-6 h-6"></ChevronDown>
+                        </CollapsibleTrigger>
+
+                        <CollapsibleContent class="flex flex-col data-[state=open]:border">
+                            <div class="text-center py-4" v-if="child.health.allergies.length == 0">
+                                Aucune maladies enregistré !
+                            </div>
+
+                            
+                            <div class="guardians px-4 mt-4" v-else v-for="allergy in child.health.allergies" :key="allergy.id">
+                                <div class="p-4 rounded border">
+                                    <p class="flex justify-between items-center">
+                                        {{ allergy.name }}
+                                        <div class="flex gap-2 items-center">
+                                            <span class="border px-3 py-1 rounded-full text-sm">{{ severityMap[allergy.severity] }}</span>
+
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger>
+                                                    <EllipsisVertical class="size-6"></EllipsisVertical>
+                                                </DropdownMenuTrigger>
+                                                
+                                                <DropdownMenuContent align="end" class="mt-2">
+                                                    <DropdownMenuItem>
+                                                        <Link 
+                                                        :href="route('daycares.children.allergies.edit', {daycare: props.daycare.id, child: props.child.id, allergy: allergy.id})"
+                                                        class="flex items-center gap-2 justify-between w-full"
+                                                        >
+                                                        Editer
+                                                        <Pencil class="size-6 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
+                                                    </Link>
+                                                </DropdownMenuItem>
+                                                
+                                                <Dialog class="">
+                                                    <DialogTrigger class="flex justify-between w-full px-2 py-1.5 text-sm hover:bg-slate-100">
+                                                        Supprimer
+                                                        <Trash class="size-6 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
+                                                    </DialogTrigger>
+                                                    <DialogContent>
+                                                        <p>Êtes-vous sûr de vouloir supprimer cette maladie ?</p>
+                                                        <div class="flex gap-2 justify-end">
+                                                            <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
+                                                            <Link 
+                                                            :href="route('daycares.children.allergies.destroy', {daycare: props.daycare.id, child: props.child.id, allergy: allergy.id})" 
+                                                            method="delete"
+                                                            class="bg-red-500 text-white px-3 py-2 rounded"
+                                                            >
+                                                            Supprimer
+                                                        </Link> 
+                                                    </div>
+                                                </DialogContent>
+                                            </Dialog>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </div>
+                                    </p>
+                                    
+                                    <p class="text-sm mt-2"> 
+                                        {{ allergy.description }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <Link 
+                                :href="route('daycares.children.allergies.create', {daycare: props.daycare.id, child: props.child.id})" 
+                                class="border rounded px-3 py-2 self-center my-4"
+                            >
+                                Ajouter une allergie
                             </Link>
                         </CollapsibleContent>
                     </Collapsible>
