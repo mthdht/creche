@@ -66,33 +66,36 @@ export interface Child {
     birth_date: string;
     avatar: string | null;
     guardians: Array<User>;
-    health: Health,
-    illnesses: Illness[]
+    health: Health;
+    illnesses: Illness[];
 }
 
 export interface Health {
-    illnesses: Illness[],
-    allergies: Allergy[],
-    mediacations: Medication[],
-    additionalNotes: AdditionalNote[]
+    illnesses: Illness[];
+    allergies: Allergy[];
+    medications: Medication[];
+    additionalNotes: AdditionalNote[];
 }
 
 export interface Illness {
     id: number;
-    name: string
-    description: string
-    note?: string
+    name: string;
+    description: string;
+    note?: string;
 }
 
 export interface Allergy {
-    id: number
-    name: string,
-    severity: 'low' | 'medium' | 'high',
-    description: string
+    id: number;
+    name: string;
+    severity: 'low' | 'medium' | 'high';
+    description: string;
 }
 
 export interface Medication {
-
+    id: number;
+    name: string;
+    dosage: string;
+    note: string;
 }
 
 export interface AdditionalNote {

@@ -170,6 +170,7 @@ const severityMap = {
                                                 <DropdownMenuTrigger>
                                                     <EllipsisVertical class="size-6"></EllipsisVertical>
                                                 </DropdownMenuTrigger>
+
                                                 <DropdownMenuContent align="end" class="mt-2">
                                                     <DropdownMenuItem>
                                                         <Link 
@@ -302,6 +303,7 @@ const severityMap = {
                             </Link>
                         </CollapsibleContent>
                     </Collapsible>
+                    
 
                     <Collapsible class="rounded ">
                         <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center">
@@ -314,7 +316,6 @@ const severityMap = {
                                 Aucune maladies enregistré !
                             </div>
 
-                            
                             <div class="guardians px-4 mt-4" v-else v-for="allergy in child.health.allergies" :key="allergy.id">
                                 <div class="p-4 rounded border">
                                     <p class="flex justify-between items-center">
@@ -364,6 +365,80 @@ const severityMap = {
                                     
                                     <p class="text-sm mt-2"> 
                                         {{ allergy.description }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <Link 
+                                :href="route('daycares.children.allergies.create', {daycare: props.daycare.id, child: props.child.id})" 
+                                class="border rounded px-3 py-2 self-center my-4"
+                            >
+                                Ajouter une allergie
+                            </Link>
+                        </CollapsibleContent>
+                    </Collapsible>
+
+                    <Collapsible class="rounded ">
+                        <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center">
+                            <span>Traitements</span>
+                            <ChevronDown class="w-6 h-6"></ChevronDown>
+                        </CollapsibleTrigger>
+
+                        <CollapsibleContent class="flex flex-col data-[state=open]:border">
+                            <div class="text-center py-4" v-if="child.health.medications.length == 0">
+                                Aucun traitement enregistré !
+                            </div>
+
+                            <div class="guardians px-4 mt-4" v-else v-for="medication in child.health.medications" :key="medication.id">
+                                <div class="p-4 rounded border">
+                                    <p class="flex justify-between items-center">
+                                        {{ medication.name }}
+                                        <div class="flex gap-2 items-center">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger>
+                                                    <EllipsisVertical class="size-6"></EllipsisVertical>
+                                                </DropdownMenuTrigger>
+                                                
+                                                <DropdownMenuContent align="end" class="mt-2">
+                                                    <DropdownMenuItem>
+                                                        <Link 
+                                                        :href="route('daycares.children.medications.edit', {daycare: props.daycare.id, child: props.child.id, medication: medication.id})"
+                                                        class="flex items-center gap-2 justify-between w-full"
+                                                        >
+                                                        Editer
+                                                        <Pencil class="size-6 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
+                                                    </Link>
+                                                </DropdownMenuItem>
+                                                
+                                                <Dialog class="">
+                                                    <DialogTrigger class="flex justify-between w-full px-2 py-1.5 text-sm hover:bg-slate-100">
+                                                        Supprimer
+                                                        <Trash class="size-6 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
+                                                    </DialogTrigger>
+                                                    <DialogContent>
+                                                        <p>Êtes-vous sûr de vouloir supprimer ce traitement ?</p>
+                                                        <div class="flex gap-2 justify-end">
+                                                            <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
+                                                            <Link 
+                                                            :href="route('daycares.children.medications.destroy', {daycare: props.daycare.id, child: props.child.id, medication: medication.id})" 
+                                                            method="delete"
+                                                            class="bg-red-500 text-white px-3 py-2 rounded"
+                                                            >
+                                                            Supprimer
+                                                        </Link> 
+                                                    </div>
+                                                </DialogContent>
+                                            </Dialog>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </div>
+                                    </p>
+                                    
+                                    <p class="text-sm mt-2"> 
+                                        {{ medication.dosage }}
+                                    </p>
+                                    <p class="text-sm mt-2"> 
+                                        {{ medication.note }}
                                     </p>
                                 </div>
                             </div>
