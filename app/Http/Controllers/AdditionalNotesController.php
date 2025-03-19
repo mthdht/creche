@@ -6,7 +6,7 @@ use App\Models\AdditionalNotes;
 use App\Http\Requests\StoreAdditionalNotesRequest;
 use App\Http\Requests\UpdateAdditionalNotesRequest;
 
-class AdditionalNotesController extends Controller
+class AdditionalNoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class AdditionalNotesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(AdditionalNotes $additionalNotes)
+    public function show(AdditionalNote $additionalNote)
     {
         //
     }
@@ -43,7 +43,7 @@ class AdditionalNotesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AdditionalNotes $additionalNotes)
+    public function edit(AdditionalNote $additionalNote)
     {
         //
     }
@@ -51,7 +51,7 @@ class AdditionalNotesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAdditionalNotesRequest $request, AdditionalNotes $additionalNotes)
+    public function update(UpdateAdditionalNotesRequest $request, AdditionalNote $additionalNote)
     {
         //
     }
@@ -59,7 +59,7 @@ class AdditionalNotesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AdditionalNotes $additionalNotes)
+    public function destroy(AdditionalNote $additionalNote)
     {
         //
     }

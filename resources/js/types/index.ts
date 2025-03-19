@@ -67,14 +67,14 @@ export interface Child {
     avatar: string | null;
     guardians: Array<User>;
     health: Health;
-    illnesses: Illness[];
+    additional_notes: Additional_note[];
 }
 
 export interface Health {
     illnesses: Illness[];
     allergies: Allergy[];
     medications: Medication[];
-    additionalNotes: AdditionalNote[];
+    
 }
 
 export interface Illness {
@@ -98,8 +98,10 @@ export interface Medication {
     note: string;
 }
 
-export interface AdditionalNote {
-    
+export interface Additional_note {
+    id: number;
+    note: string;
+    severity: 'low' | 'medium' | 'high';
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;

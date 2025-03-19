@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('daycares.children.illnesses', IllnessController::class);
     Route::resource('daycares.children.allergies', AllergyController::class);
     Route::resource('daycares.children.medications', MedicationController::class);
+    Route::resource('daycares.children.additionalNotes', additionalNotesController::class);
 
 
 });

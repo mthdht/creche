@@ -9,7 +9,7 @@ import { calculateAge } from '@/lib/utils';
 import { Dialog, DialogTrigger, DialogContent, DialogClose  } from '@/components/ui/dialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger} from '@/components/ui/collapsible';
-import { ChevronDown, Trash, Pencil, Info, EllipsisVertical } from 'lucide-vue-next';
+import { ChevronDown, Trash, Pencil, Info, EllipsisVertical, TriangleAlert, CircleAlert } from 'lucide-vue-next';
 
 const props = defineProps<{
     daycare: Daycare;
@@ -33,21 +33,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const activeTab = ref('infos')
 
-const relationship = (relation: any) => {
-    switch (relation) {
-        case 'father':
-            return 'Père';
-        case 'mother':
-            return 'Mère';
-        case 'guardian':
-            return 'Tuteur';
-        case 'other':
-            return 'Autre';
-        default:
-            return 'Autre';
-    }
-}
-
 const relationshipMap = {
     father: 'Père',
     mother: 'Mère',
@@ -60,6 +45,12 @@ const severityMap = {
     high: 'Elevé',
     medium: 'normal',
     low: 'basse'
+}
+
+const severityIcon = {
+    high: TriangleAlert,
+    medium: CircleAlert,
+    low: Info
 }
 
 </script>
@@ -451,10 +442,80 @@ const severityMap = {
                             </Link>
                         </CollapsibleContent>
                     </Collapsible>
+
+                    <Collapsible class="rounded ">
+                        <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center">
+                            <span>Notes</span>
+                            <ChevronDown class="w-6 h-6"></ChevronDown>
+                        </CollapsibleTrigger>
+
+                        <CollapsibleContent class="flex flex-col data-[state=open]:border">
+                            <div class="text-center py-4" v-if="child.additional_notes.length == 0">
+                                Aucune note enregistré !
+                            </div>
+
+                            <div class="guardians px-4 mt-4" v-else v-for="additionalNote in child.additional_notes" :key="additionalNote.id">
+                                <div class="p-4 rounded border">
+                                    <p class="flex justify-between items-start">
+                                        <div class="flex gap-2 items-center">
+                                            <component 
+                                                :is="severityIcon[additionalNote.severity]"
+                                                class="size-6 shrink-0"
+                                            ></component>
+                                            {{ additionalNote.note }}
+                                        </div>
+                                        <div class="flex gap-2 items-center">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger>
+                                                    <EllipsisVertical class="size-6"></EllipsisVertical>
+                                                </DropdownMenuTrigger>
+                                                
+                                                <DropdownMenuContent align="end" class="mt-2">
+                                                    <DropdownMenuItem>
+                                                        <Link 
+                                                            :href="route('daycares.children.additionalNotes.edit', {daycare: props.daycare.id, child: props.child.id, additionalNote: additionalNote.id})"
+                                                            class="flex items-center gap-2 justify-between w-full"
+                                                            >
+                                                            Editer
+                                                            <Pencil class="size-6 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
+                                                        </Link>
+                                                    </DropdownMenuItem>
+                                                
+                                                    <Dialog class="">
+                                                        <DialogTrigger class="flex justify-between w-full px-2 py-1.5 text-sm hover:bg-slate-100">
+                                                            Supprimer
+                                                            <Trash class="size-6 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
+                                                        </DialogTrigger>
+                                                        <DialogContent>
+                                                            <p>Êtes-vous sûr de vouloir supprimer ce traitement ?</p>
+                                                            <div class="flex gap-2 justify-end">
+                                                                <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
+                                                                <Link 
+                                                                    :href="route('daycares.children.additionalNotes.destroy', {daycare: props.daycare.id, child: props.child.id, additionalNote: additionalNote.id})" 
+                                                                    method="delete"
+                                                                    class="bg-red-500 text-white px-3 py-2 rounded"
+                                                                    >
+                                                                    Supprimer
+                                                                </Link> 
+                                                            </div>
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <Link 
+                                :href="route('daycares.children.additionalNotes.create', {daycare: props.daycare.id, child: props.child.id})" 
+                                class="border rounded px-3 py-2 self-center my-4"
+                            >
+                                Ajouter une note
+                            </Link>
+                        </CollapsibleContent>
+                    </Collapsible>
                 </section>
-
-
-
             </Transition>
         </div>
     </AppLayout>
