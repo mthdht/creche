@@ -444,10 +444,10 @@ const severityMap = {
                             </div>
 
                             <Link 
-                                :href="route('daycares.children.allergies.create', {daycare: props.daycare.id, child: props.child.id})" 
+                                :href="route('daycares.children.medications.create', {daycare: props.daycare.id, child: props.child.id})" 
                                 class="border rounded px-3 py-2 self-center my-4"
                             >
-                                Ajouter une allergie
+                                Ajouter un traitement
                             </Link>
                         </CollapsibleContent>
                     </Collapsible>

@@ -26,44 +26,44 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: route('daycares.children.show', {daycare: props.daycare.id, child: props.child.id}),
     },
     {
-        title: 'Ajouter une maladie',
-        href: route('daycares.children.illnesses.create', {daycare: props.daycare.id, child: props.child.id})
+        title: 'Ajouter un traitement',
+        href: route('daycares.children.medications.create', {daycare: props.daycare.id, child: props.child.id})
     },
 ];
 
 const form = useForm({
     name: '',
-    description: '',
-    note: ''
+    note: '',
+    dosage: ''
 });
 
 const submit = () => {
-    form.post(route('daycares.children.illnesses.store', {daycare: props.daycare.id, child: props.child.id}));
+    form.post(route('daycares.children.medications.store', {daycare: props.daycare.id, child: props.child.id}));
 };
 
 </script>
 
 <template>
-    <Head title="Création d'une maladie" />
+    <Head title="Création d'un traitement" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="space-y-4">
             <h2 class="font-semibold text-xl flex justify-between gap-3">
                 <div class="flex gap-3">
                     <Store class="size-8 text-indigo-500"></Store>
-                    Ajouter un maladie à {{  props.child.first_name }}    
+                    Ajouter un traitement à {{  props.child.first_name }}    
                 </div>
             </h2>
 
             <form @submit.prevent="submit" class="flex flex-col gap-6">
                 <div class="form-control space-y-2">
-                    <label for="name" class="font-semibold">Nom de la maladie</label>
+                    <label for="name" class="font-semibold">Nom du traitement</label>
                     <input 
                         type="text" 
                         name="name" 
                         id="name" 
                         class="w-full rounded-lg border border-gray-200 p-2" 
-                        placeholder="Asthme"
+                        placeholder="Doliprane"
                         v-model="form.name"
                         required
                         tabindex="1"
@@ -72,18 +72,18 @@ const submit = () => {
                 </div>
 
                 <div class="form-control space-y-2">
-                    <label for="descripton" class="font-semibold">Description</label>
+                    <label for="dosage" class="font-semibold">dosage</label>
                     <input 
                         type="text" 
-                        name="descripton" 
-                        id="descripton" 
+                        name="dosage" 
+                        id="dosage" 
                         class="w-full rounded-lg border border-gray-200 p-2" 
-                        placeholder="Problème respiratoire"
-                        v-model="form.description"
+                        placeholder="50ml tout les 6h (max 4x/J)"
+                        v-model="form.dosage"
                         required
                         tabindex="2"
                     >
-                    <InputError :message="form.errors.description" />
+                    <InputError :message="form.errors.dosage" />
                 </div>
 
                 <div class="form-control space-y-2">
@@ -102,7 +102,7 @@ const submit = () => {
 
                 <Button type="submit" class="mt-4 self-center" :tabindex="5" :disabled="form.processing">
                     <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                    Créer une maladie
+                    Créer un traitement
                 </Button>
             </form>
             

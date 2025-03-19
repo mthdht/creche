@@ -11,7 +11,7 @@ class UpdateMedicationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->profile->role === 'professional';
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateMedicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'dosage' => ['required', 'string', 'max:255'],
+            'note' => ['string', 'max:255'],
         ];
     }
 }
