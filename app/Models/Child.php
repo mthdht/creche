@@ -11,6 +11,7 @@ use App\Models\Illness;
 use App\Models\Medication;
 use App\Models\AdditionalNote;
 use App\Models\Daycare;
+use App\Models\Transmission;
 
 class Child extends Model
 {
@@ -28,7 +29,6 @@ class Child extends Model
     {
         return $this->belongsTo(Daycare::class);
     }
-
 
     // La relation avec les tuteurs (utilisateurs)
     public function guardians()
@@ -59,5 +59,9 @@ class Child extends Model
     public function additionalNotes()
     {
         return $this->hasMany(AdditionalNote::class);
+    }
+
+    public function transmissions() {
+        return $this->hasMany(Transmission::class);
     }
 }

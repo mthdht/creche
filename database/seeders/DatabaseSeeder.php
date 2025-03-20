@@ -33,12 +33,13 @@ class DatabaseSeeder extends Seeder
 
         $me->daycares()->saveMany(Daycare::factory(2)
                                     ->has(Child::factory(5)
-                                    ->has(User::factory(2)
-                                        ->hasProfile(1,['role' => 'guardian']), 'guardians')
-                                    ->has(Health::factory()
-                                        ->hasAllergies(3)
-                                        ->hasIllnesses(1)
-                                        ->hasMedications(2))
-                                    ->hasAdditionalNotes(2))->create());
+                                        ->has(User::factory(2)
+                                            ->hasProfile(1,['role' => 'guardian']), 'guardians')
+                                        ->has(Health::factory()
+                                            ->hasAllergies(3)
+                                            ->hasIllnesses(1)
+                                            ->hasMedications(2))
+                                        ->hasAdditionalNotes(2)
+                                        ->hasTransmissions(4))->create());
     }
 }
