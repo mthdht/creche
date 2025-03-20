@@ -7,7 +7,8 @@ import { type BreadcrumbItem, type Daycare, type Child } from '@/types';
 
 import Select from '@/components/Select.vue';
 import { Dialog, DialogTrigger, DialogContent, DialogClose  } from '@/components/ui/dialog';
-import { Baby, Locate, Pencil, Search, Store, Trash, UserPlus } from 'lucide-vue-next';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { Baby, EllipsisVertical, Locate, Pencil, Search, Store, Trash, UserPlus } from 'lucide-vue-next';
 
 const props = defineProps<{
     daycare: Daycare;
@@ -58,31 +59,44 @@ const filteredChildren = computed(() => {
                     <Store class="size-8 text-indigo-500"></Store>
                     {{ props.daycare.name}} !
                 </div>
-                <div class="actions flex gap-2 items-start">
-                    <Link :href="route('daycares.edit', {daycare: props.daycare.id})">
-                        <Pencil class="size-8 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
-                    </Link>
 
+                <DropdownMenu >
+                    <DropdownMenuTrigger class="self-start p-1 rounded-full border aspect-square">
+                        <EllipsisVertical class="size-7 mt-1"></EllipsisVertical>
+                    </DropdownMenuTrigger>
                     
-                    <Dialog>
-                        <DialogTrigger>
-                            <Trash class="size-8 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
-                        </DialogTrigger>
-                        <DialogContent>
-                            <p>Êtes-vous sûr de vouloir supprimer cette crèche ?</p>
-                            <div class="flex gap-2 justify-end">
-                                <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
-                                <Link 
-                                    :href="route('daycares.destroy', {daycare: props.daycare.id})" 
-                                    method="delete"
-                                    class="bg-red-500 text-white px-3 py-2 rounded"
-                                >
-                                    Supprimer
-                                </Link> 
-                            </div>
-                        </DialogContent>
-                    </Dialog>
-                </div>
+                    <DropdownMenuContent align="end" class="mt-2">
+                        <DropdownMenuItem>
+                            <Link 
+                            :href="route('daycares.edit', {daycare: props.daycare})"
+                            class="flex items-center gap-2 justify-between w-full"
+                            >
+                                Editer
+                                <Pencil class="size-6 text-white bg-yellow-500 rounded p-1 shadow-lg"></Pencil>
+                            </Link>
+                        </DropdownMenuItem>
+                        
+                        <Dialog class="">
+                            <DialogTrigger class="flex justify-between w-full px-2 py-1.5 text-sm hover:bg-slate-100">
+                                Supprimer
+                                <Trash class="size-6 text-white bg-red-500 rounded p-1 shadow-lg"></Trash>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <p>Êtes-vous sûr de vouloir supprimer cette crèche ?</p>
+                                <div class="flex gap-2 justify-end">
+                                    <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
+                                        <Link 
+                                        :href="route('daycares.destroy', {daycare: props.daycare.id})" 
+                                        method="delete"
+                                        class="bg-red-500 text-white px-3 py-2 rounded"
+                                        >
+                                        Supprimer
+                                    </Link> 
+                                </div>
+                            </DialogContent>
+                        </Dialog>
+                    </DropdownMenuContent>
+                </DropdownMenu>
 
             </h2>
 
