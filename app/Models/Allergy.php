@@ -12,7 +12,7 @@ class Allergy extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'child_id'
+        'name', 'description', 'severity', 'child_id'
     ];
 
     public function health()

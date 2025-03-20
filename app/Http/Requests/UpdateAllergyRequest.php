@@ -22,7 +22,9 @@ class UpdateAllergyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:245'],
+            'description' => ['required', 'string', 'max:245'],
+            'severity' => ['required', 'string', 'max:245'],
         ];
     }
 }

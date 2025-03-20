@@ -9,7 +9,7 @@ import Select from '@/components/Select.vue';
 import { Store } from 'lucide-vue-next';
 
 const props = defineProps<{
-    daycare: Daycare;
+    daycare: Daycare,
     child: Child,
     guardian: User
 }>();

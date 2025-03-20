@@ -294,8 +294,7 @@ const severityIcon = {
                             </Link>
                         </CollapsibleContent>
                     </Collapsible>
-                    
-
+                        
                     <Collapsible class="rounded ">
                         <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center">
                             <span>Allergies</span>
