@@ -24,7 +24,7 @@ class TransmissionFactory extends Factory
             ]),
             'description' => $this->faker->sentence(),
             'duration' => $this->faker->time('H:i'),
-            'datetime' => $this->faker->datetime(),
+            'datetime' => $this->faker->datetimeBetween('-2 week', 'now'),
             'severity' =>$this->faker->optional()->randomElement(['low', 'high','medium'])
         ];
     }

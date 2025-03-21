@@ -9,6 +9,7 @@ use App\Http\Requests\StoreChildRequest;
 use App\Http\Requests\UpdateChildRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class ChildController extends Controller
 {
@@ -57,10 +58,12 @@ class ChildController extends Controller
      */
     public function show(Daycare $daycare, Child $child)
     {
+        $child->load(['guardians', 'health', 'additionalNotes', 'lastFiveDaysTransmissions']);
+
         if (Auth::user()->can('act', $daycare)) {
             return Inertia::render('children/Show', [
                 'daycare' => $daycare,
-                'child' => $child->load(['guardians', 'health', 'additionalNotes', ''])
+                'child' => $child
             ]);
         }
 

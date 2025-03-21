@@ -18,7 +18,6 @@ class Transmission extends Model
      */
     protected $fillable = ['type', 'description', 'severity', 'datetime', 'duration', 'child_id'];
 
-
     public function child() {
         return $this->belongTo(Child::class);
     }

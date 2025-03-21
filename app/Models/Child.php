@@ -12,6 +12,7 @@ use App\Models\Medication;
 use App\Models\AdditionalNote;
 use App\Models\Daycare;
 use App\Models\Transmission;
+use Illuminate\Support\Carbon;
 
 class Child extends Model
 {
@@ -63,5 +64,11 @@ class Child extends Model
 
     public function transmissions() {
         return $this->hasMany(Transmission::class);
+    }
+
+    public function lastFiveDaysTransmissions() {
+        return $this->transmissions()
+            ->where('datetime', '>=', Carbon::now()->subDays(5))
+            ->orderBy('datetime', 'desc');
     }
 }

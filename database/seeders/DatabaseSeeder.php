@@ -40,6 +40,6 @@ class DatabaseSeeder extends Seeder
                                             ->hasIllnesses(1)
                                             ->hasMedications(2))
                                         ->hasAdditionalNotes(2)
-                                        ->hasTransmissions(4))->create());
+                                        ->hasTransmissions(10))->create());
     }
 }
