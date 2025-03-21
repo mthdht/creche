@@ -30,7 +30,8 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const activeTab = ref('infos')
+let params = new URLSearchParams(document.location.search)
+const activeTab = ref(params.get('tab') || 'infos')
 
 const relationshipMap = {
     father: 'Père',

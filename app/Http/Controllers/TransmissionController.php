@@ -44,7 +44,7 @@ class TransmissionController extends Controller
             $child->transmissions()->create($request->all());
         }
 
-        return redirect()->route('daycares.children.show', [$daycare, $child]);
+        return redirect()->route('daycares.children.show', [$daycare, $child, 'tab' => 'transmissions']);
     }
 
     /**
@@ -80,7 +80,7 @@ class TransmissionController extends Controller
             $transmission->update($request->all());
          }
  
-         return redirect()->route('daycares.children.show', [$daycare, $child]);
+         return redirect()->route('daycares.children.show', [$daycare, $child, 'tab' => 'transmissions']);
     }
 
     /**
