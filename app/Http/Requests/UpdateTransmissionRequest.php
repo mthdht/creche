@@ -23,9 +23,9 @@ class UpdateTransmissionRequest extends FormRequest
     {
         return [
             'type' => ['required', 'string', 'max:255'],
-            'description' => ['string', 'max:255'],
-            'duration' => ['string', 'max:255'],
-            'severity' => ['string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:255'],
+            'duration' => ['nullable', 'string', 'max:255'],
+            'severity' => ['nullable', 'string', 'max:255'],
             'datetime' => ['string', 'max:255']
         ];
     }

@@ -77,7 +77,7 @@ class TransmissionController extends Controller
     public function update(UpdateTransmissionRequest $request, Daycare $daycare, Child $child, Transmission $transmission)
     {
         if (Auth::user()->can('act', $daycare)) {
-            $allergy->update($request->all());
+            $transmission->update($request->all());
          }
  
          return redirect()->route('daycares.children.show', [$daycare, $child]);

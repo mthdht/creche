@@ -108,6 +108,20 @@ const submit = () => {
                     <InputError :message="form.errors.datetime" />
                 </div>
 
+                <div class="form-control space-y-2" v-if="form.type == 'sieste'">
+                    <label for="duration" class="font-semibold">Durée de l'activité</label>
+                    <input 
+                        type="time" 
+                        name="duration" 
+                        id="duration" 
+                        class="w-full rounded-lg border border-gray-200 p-2"
+                        v-model="form.duration"
+                        required
+                        tabindex="1"
+                    >
+                    <InputError :message="form.errors.duration" />
+                </div>
+
                 <div class="form-control space-y-2">
                     <label for="phone" class="font-semibold">Importance</label>
 
@@ -129,7 +143,7 @@ const submit = () => {
 
                 <Button type="submit" class="mt-4 self-center" :tabindex="5" :disabled="form.processing">
                     <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                    Créer une allergie
+                    Créer une activité
                 </Button>
             </form>
             

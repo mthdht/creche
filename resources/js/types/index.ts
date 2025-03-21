@@ -108,9 +108,10 @@ export interface AdditionalNote {
 export interface Transmission {
     id: number
     datetime: string
-    description: string
+    description?: string
     type: string
-    duration: string
+    duration?: string,
+    severity?: string
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
