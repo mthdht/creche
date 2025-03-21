@@ -11,7 +11,7 @@ class StoreTransmissionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->profile->role === 'professional';
     }
 
     /**
@@ -22,7 +22,11 @@ class StoreTransmissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'type' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:255'],
+            'duration' => ['nullable', 'string', 'max:255'],
+            'severity' => ['nullable', 'string', 'max:255'],
+            'datetime' => ['string', 'max:255']
         ];
     }
 }

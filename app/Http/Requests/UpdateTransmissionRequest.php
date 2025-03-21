@@ -11,7 +11,7 @@ class UpdateTransmissionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->user()->profile->role === 'professional';
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateTransmissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'type' => ['required', 'string', 'max:255'],
+            'description' => ['string', 'max:255'],
+            'duration' => ['string', 'max:255'],
+            'severity' => ['string', 'max:255'],
+            'datetime' => ['string', 'max:255']
         ];
     }
 }

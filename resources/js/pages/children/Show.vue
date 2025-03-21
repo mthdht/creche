@@ -108,20 +108,20 @@ const severityIcon = {
             <!-- Tabs ou sections de contenu -->
             <section class="tabs flex gap-2 font-semibold">
                 <button class="tab-btn border-2 p-1 rounded w-1/3 " 
-                :class="{ 'bg-sky-500 text-white': activeTab === 'infos' }" @click="activeTab = 'infos'"
-                >
-                Infos 
+                    :class="{ 'bg-sky-500 text-white': activeTab === 'infos' }" @click="activeTab = 'infos'"
+                    >
+                    Infos 
                 </button>
 
                 <button class="tab-btn border-2 p-1 rounded w-1/3 " 
-                :class="{ 'bg-sky-500 text-white': activeTab === 'transmissions' }" @click="activeTab = 'transmissions'"
-                >
-                Activités
+                    :class="{ 'bg-sky-500 text-white': activeTab === 'transmissions' }" @click="activeTab = 'transmissions'"
+                    >
+                    Activités
                 </button>
                 <button class="tab-btn border-2 p-1 rounded w-1/3 " 
-                :class="{ 'bg-sky-500 text-white': activeTab === 'messages' }" @click="activeTab = 'messages'"
-                >
-                Messages
+                    :class="{ 'bg-sky-500 text-white': activeTab === 'messages' }" @click="activeTab = 'messages'"
+                    >
+                    Messages
                 </button>
             </section>
                 

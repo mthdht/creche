@@ -6,7 +6,7 @@ import { transmissionByDate, readableTime } from '@/lib/utils';
 import { Dialog, DialogTrigger, DialogContent, DialogClose  } from '@/components/ui/dialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger} from '@/components/ui/collapsible';
-import { ChevronDown, Trash, Pencil, Info, EllipsisVertical, TriangleAlert, CircleAlert } from 'lucide-vue-next';
+import { ChevronDown, Trash, Pencil, Info, EllipsisVertical, TriangleAlert, CircleAlert, Plus } from 'lucide-vue-next';
 
 const props = defineProps<{
     daycare: Daycare;
@@ -36,6 +36,15 @@ const severityIcon = {
 
 <template>
     <section class="space-y-4">
+        <div class="filters">
+            <Link 
+                :href="route('daycares.children.transmissions.create', {daycare: props.daycare.id, child: props.child.id})"
+                class="flex items-center gap-2 justify-between w-full"
+                >
+                <Plus class="size-6 text-white bg-emerald-500 rounded p-1 shadow-lg"></Plus>
+            </Link>
+        </div>
+
         <Collapsible class="rounded" v-for="transmissionDay in transmissionByDate(child.last_five_days_transmissions)">
             <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center">
                 <span>{{  (new Date(transmissionDay[0])).toLocaleDateString('fr-Fr', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) }}</span>
@@ -46,8 +55,8 @@ const severityIcon = {
                 <div class="text-center py-4" v-if="child.guardians.length == 0">
                     Aucune activité enregistré !
                 </div>
-                
-                <div class="guardians px-4 mt-4" v-else v-for="transmission in transmissionDay[1]" :key="transmission.id">
+
+                <div class="guardians px-4 mt-4 last:mb-4"  v-else v-for="transmission in transmissionDay[1]" :key="transmission.id">
                     <div class="p-4 rounded border">
                         <div class="flex justify-between items-center">
                             <p class="flex gap-2">
@@ -59,6 +68,7 @@ const severityIcon = {
                                     <span>{{ transmission.description }}</span>
                                 </div>
                             </p>
+
                             <div class="flex gap-2 items-center self-start">
                                 <DropdownMenu>
                                     <DropdownMenuTrigger>
@@ -98,18 +108,9 @@ const severityIcon = {
                                     </DropdownMenuContent>
                                 </DropdownMenu>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
-
-                <Link 
-                    :href="route('daycares.children.guardians.create', {daycare: props.daycare.id, child: props.child.id})" 
-                    class="border rounded px-3 py-2 self-center my-4"
-                >
-                    Ajouter une activité
-                </Link>
             </CollapsibleContent>
         </Collapsible>
     </section>
