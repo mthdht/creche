@@ -68,13 +68,14 @@ export interface Child {
     guardians: Array<User>;
     health: Health;
     additional_notes: AdditionalNote[];
+    transmissions: [];
+    last_five_days_transmissions: Transmission[]
 }
 
 export interface Health {
     illnesses: Illness[];
     allergies: Allergy[];
     medications: Medication[];
-    
 }
 
 export interface Illness {
@@ -102,6 +103,14 @@ export interface AdditionalNote {
     id: number;
     note: string;
     severity: 'low' | 'medium' | 'high';
+}
+
+export interface Transmission {
+    id: number
+    datetime: string
+    description: string
+    type: string
+    duration: string
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;

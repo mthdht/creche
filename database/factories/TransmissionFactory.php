@@ -17,7 +17,7 @@ class TransmissionFactory extends Factory
      */
     public function definition(): array
     {
-        return [
+        $array = [
             'child_id' => 1,
             'type' => $this->faker->randomElement([
                 'sieste', 'repas', 'hygiène'
@@ -27,5 +27,11 @@ class TransmissionFactory extends Factory
             'datetime' => $this->faker->datetimeBetween('-2 week', 'now'),
             'severity' =>$this->faker->optional()->randomElement(['low', 'high','medium'])
         ];
+        
+        if ($array['type'] == 'sieste') {
+            $array['duration'] = $this->faker->time('H:i');
+        }
+
+        return $array;
     }
 }

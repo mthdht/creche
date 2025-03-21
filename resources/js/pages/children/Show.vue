@@ -7,9 +7,8 @@ import { type BreadcrumbItem, type Daycare, type Child } from '@/types';
 import { calculateAge } from '@/lib/utils';
 import ChildInfos from '@/components/ChildInfos.vue'
 import { Dialog, DialogTrigger, DialogContent, DialogClose  } from '@/components/ui/dialog';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger} from '@/components/ui/collapsible';
-import { ChevronDown, Trash, Pencil, Info, EllipsisVertical, TriangleAlert, CircleAlert } from 'lucide-vue-next';
+import { Info, TriangleAlert, CircleAlert } from 'lucide-vue-next';
+import Transmissions from '@/components/Transmissions.vue';
 
 const props = defineProps<{
     daycare: Daycare;
@@ -115,7 +114,7 @@ const severityIcon = {
                 </button>
 
                 <button class="tab-btn border-2 p-1 rounded w-1/3 " 
-                :class="{ 'bg-sky-500 text-white': activeTab === 'activities' }" @click="activeTab = 'activities'"
+                :class="{ 'bg-sky-500 text-white': activeTab === 'transmissions' }" @click="activeTab = 'transmissions'"
                 >
                 Activités
                 </button>
@@ -125,23 +124,18 @@ const severityIcon = {
                 Messages
                 </button>
             </section>
-
-            <!--
-                <pre>
-                    
-                    {{  props.child }}
-                </pre>
-                -->
-
+                
             <Transition mode="out-in"
                 enter-active-class="transition duration-200 ease-out"
                 leave-active-class="transition duration-200 ease-in"
                 enter-from-class="opacity-0 -translate-y-2"
                 leave-to-class="opacity-0 translate-y-2"
             >
-                <ChildInfos :daycare="props.daycare" :child="props.child" v-if="activeTab === 'infos'"></ChildInfos>
-
                 
+                <ChildInfos :daycare="props.daycare" :child="props.child" v-if="activeTab === 'infos'"></ChildInfos>
+                
+                <Transmissions :daycare="props.daycare" :child="props.child" v-else-if="activeTab === 'transmissions'"></Transmissions>
+              
             </Transition>
         </div>
     </AppLayout>
