@@ -6,31 +6,26 @@ import { transmissionByDate, readableTime } from '@/lib/utils';
 import { Dialog, DialogTrigger, DialogContent, DialogClose  } from '@/components/ui/dialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger} from '@/components/ui/collapsible';
-import { ChevronDown, Trash, Pencil, Info, EllipsisVertical, TriangleAlert, CircleAlert, Plus } from 'lucide-vue-next';
+import { ChevronDown, Trash, Pencil, EllipsisVertical, Plus, Moon, Utensils, Toilet } from 'lucide-vue-next';
 
 const props = defineProps<{
     daycare: Daycare;
     child: Child;
 }>();
 
-const relationshipMap = {
-    father: 'Père',
-    mother: 'Mère',
-    guardian: 'tuteur',
-    other: 'Autre',
-    grandParent: 'grands parents'
+const iconMap: any = {
+    sieste: Moon,
+    repas: Utensils,
+    hygiene: Toilet
 }
 
-const severityMap = {
-    high: 'Elevé',
-    medium: 'normal',
-    low: 'basse'
-}
+const readableDuration = (duration) => {
+    const splitDuration = duration.split(':')
 
-const severityIcon = {
-    high: TriangleAlert,
-    medium: CircleAlert,
-    low: Info
+    if (splitDuration[0] == '00') {
+        return splitDuration[1] + ' min'
+    }
+    return duration
 }
 </script>
 
@@ -60,15 +55,16 @@ const severityIcon = {
                     <div class="p-4 rounded border">
                         <div class="flex justify-between items-center">
                             <p class="flex gap-2">
-                                {{ readableTime(transmission.datetime) }}
-                                <span>icon</span>
-                                <span>{{  transmission.type }}</span>
-                                <div class="flex flex-col">
-                                    <span v-if="transmission.duration">Durée: {{ transmission.duration.replace(':', 'H') }}</span>
-                                    <span>{{ transmission.description }}</span>
-                                </div>
+                                <span class="font-semibold">
+                                    {{ readableTime(transmission.datetime) }}
+                                </span>
+                                <component :is="iconMap[transmission.type]"></component>
+                                <span>{{  transmission.type.toUpperCase() }}</span>
+                                <span v-if="transmission.duration">
+                                    de {{ readableDuration(transmission.duration) }}
+                                </span>
                             </p>
-
+                            
                             <div class="flex gap-2 items-center self-start">
                                 <DropdownMenu>
                                     <DropdownMenuTrigger>
@@ -109,6 +105,7 @@ const severityIcon = {
                                 </DropdownMenu>
                             </div>
                         </div>
+                        <p class="italic">{{ transmission.description }}</p>
                     </div>
                 </div>
             </CollapsibleContent>

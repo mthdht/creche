@@ -70,6 +70,20 @@ class ChildController extends Controller
         return back();
     }
 
+    public function showTransmissions(Daycare $daycare, Child $child)
+    {
+        $child->load(['lastFiveDaysTransmissions']);
+
+        if (Auth::user()->can('act', $daycare)) {
+            return Inertia::render('children/Show', [
+                'daycare' => $daycare,
+                'child' => $child
+            ]);
+        }
+
+        return back();
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

@@ -108,7 +108,7 @@ const submit = () => {
                     <InputError :message="form.errors.datetime" />
                 </div>
 
-                <div class="form-control space-y-2">
+                <div class="form-control space-y-2" v-if="form.type == 'sieste'">
                     <label for="duration" class="font-semibold">Durée de l'activité</label>
                     <input 
                         type="time" 

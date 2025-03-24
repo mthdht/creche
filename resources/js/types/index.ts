@@ -42,9 +42,6 @@ interface UserProfile {
     phone?: string;
     address?: string;
     role: string;
-    sexe: string;
-    birth_date?: string;
-    avatar?: string;
     relationship: 'father' | 'mother' | 'grandParent' | 'other';
 }
 

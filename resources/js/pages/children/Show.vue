@@ -33,26 +33,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 let params = new URLSearchParams(document.location.search)
 const activeTab = ref(params.get('tab') || 'infos')
 
-const relationshipMap = {
-    father: 'Père',
-    mother: 'Mère',
-    guardian: 'tuteur',
-    other: 'Autre',
-    grandParent: 'grands parents'
-}
-
-const severityMap = {
-    high: 'Elevé',
-    medium: 'normal',
-    low: 'basse'
-}
-
-const severityIcon = {
-    high: TriangleAlert,
-    medium: CircleAlert,
-    low: Info
-}
-
 </script>
 
 <template>
