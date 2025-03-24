@@ -58,7 +58,7 @@ class ChildController extends Controller
      */
     public function show(Daycare $daycare, Child $child)
     {
-        $child->load(['guardians', 'health', 'additionalNotes', 'lastFiveDaysTransmissions']);
+        $child->load(['guardians', 'health', 'additionalNotes', 'lastFiveDaysTransmissions', 'allMessages']);
 
         if (Auth::user()->can('act', $daycare)) {
             return Inertia::render('children/Show', [

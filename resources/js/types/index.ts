@@ -66,7 +66,8 @@ export interface Child {
     health: Health;
     additional_notes: AdditionalNote[];
     transmissions: [];
-    last_five_days_transmissions: Transmission[]
+    last_five_days_transmissions: Transmission[],
+    all_messages: []
 }
 
 export interface Health {

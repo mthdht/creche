@@ -85,7 +85,8 @@ class Child extends Model
                 $query->where('child_id', $this->id)
                     ->orWhere('daycare_id', $this->daycare_id);
             })
-            ->orWhere('target', 'all');
+            ->orWhere('target', 'all')
+            ->orderBy('created_at', 'desc');
     }
 
 }

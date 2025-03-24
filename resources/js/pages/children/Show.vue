@@ -116,6 +116,12 @@ const activeTab = ref(params.get('tab') || 'infos')
                 <ChildInfos :daycare="props.daycare" :child="props.child" v-if="activeTab === 'infos'"></ChildInfos>
                 
                 <Transmissions :daycare="props.daycare" :child="props.child" v-else-if="activeTab === 'transmissions'"></Transmissions>
+
+                <div class="messages" v-else-if="activeTab === 'messages'">
+                    <pre>
+                        {{ props.child.all_messages }}
+                    </pre>
+                </div>
               
             </Transition>
         </div>
