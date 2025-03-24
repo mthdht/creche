@@ -12,6 +12,7 @@ use App\Models\Medication;
 use App\Models\AdditionalNote;
 use App\Models\Daycare;
 use App\Models\Transmission;
+use App\Models\Message;
 use Illuminate\Support\Carbon;
 
 class Child extends Model
@@ -71,4 +72,20 @@ class Child extends Model
             ->where('datetime', '>=', Carbon::now()->subDays(5))
             ->orderBy('datetime', 'desc');
     }
+
+    public function messages()
+    {
+        return $this->belongsToMany(Message::class, 'messages_recipients');
+    }
+
+    public function allMessages()
+    {
+        return $this->belongsToMany(Message::class, 'messages_recipients')
+            ->where(function ($query) {
+                $query->where('child_id', $this->id)
+                    ->orWhere('daycare_id', $this->daycare_id);
+            })
+            ->orWhere('target', 'all');
+    }
+
 }

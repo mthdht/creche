@@ -19,7 +19,7 @@ const iconMap: any = {
     hygiene: Toilet
 }
 
-const readableDuration = (duration) => {
+const readableDuration = (duration: string) => {
     const splitDuration = duration.split(':')
 
     if (splitDuration[0] == '00') {
@@ -41,13 +41,14 @@ const readableDuration = (duration) => {
         </div>
 
         <Collapsible class="rounded" v-for="transmissionDay in transmissionByDate(child.last_five_days_transmissions)">
-            <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center">
+            <CollapsibleTrigger class="border p-4 w-full font-semibold flex justify-between items-center group">
                 <span>{{  (new Date(transmissionDay[0])).toLocaleDateString('fr-Fr', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) }}</span>
-                <ChevronDown class="w-6 h-6"></ChevronDown>
+                <ChevronDown 
+                    class="w-6 h-6 transition-transform duration-300 ease-in-out group-data-[state=open]:rotate-180"></ChevronDown>
             </CollapsibleTrigger>
 
             <CollapsibleContent class="flex flex-col data-[state=open]:border">
-                <div class="text-center py-4" v-if="child.guardians.length == 0">
+                <div class="text-center py-4" v-if="transmissionDay[1].length == 0">
                     Aucune activité enregistré !
                 </div>
 

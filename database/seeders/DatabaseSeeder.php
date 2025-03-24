@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Child;
 use App\Models\Daycare;
 use App\Models\Health;
+use App\Models\Message;
 use Illuminate\Support\Facades\Hash;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -40,6 +41,8 @@ class DatabaseSeeder extends Seeder
                                             ->hasIllnesses(1)
                                             ->hasMedications(2))
                                         ->hasAdditionalNotes(2)
-                                        ->hasTransmissions(10))->create());
+                                        ->hasTransmissions(10)
+                                        ->Has(Message::factory(5)))
+                                    ->has(Message::factory(4))->create());
     }
 }
