@@ -15,6 +15,7 @@ use App\Http\Controllers\IllnessController;
 use App\Http\Controllers\AllergyController;
 use App\Http\Controllers\AdditionalNoteController;
 use App\Http\Controllers\TransmissionController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -69,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('daycares.children.medications', MedicationController::class);
     Route::resource('daycares.children.additionalNotes', additionalNoteController::class);
     Route::resource('daycares.children.transmissions', TransmissionController::class);
+    Route::resource('daycares.children.messages', MessageController::class);
 
 
 });

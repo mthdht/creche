@@ -9,6 +9,7 @@ import ChildInfos from '@/components/ChildInfos.vue'
 import { Dialog, DialogTrigger, DialogContent, DialogClose  } from '@/components/ui/dialog';
 import { Info, TriangleAlert, CircleAlert } from 'lucide-vue-next';
 import Transmissions from '@/components/Transmissions.vue';
+import ChildMessages from '@/components/ChildMessages.vue';
 
 const props = defineProps<{
     daycare: Daycare;
@@ -117,11 +118,7 @@ const activeTab = ref(params.get('tab') || 'infos')
                 
                 <Transmissions :daycare="props.daycare" :child="props.child" v-else-if="activeTab === 'transmissions'"></Transmissions>
 
-                <div class="messages" v-else-if="activeTab === 'messages'">
-                    <pre>
-                        {{ props.child.all_messages }}
-                    </pre>
-                </div>
+                <ChildMessages :daycare="props.daycare" :child="props.child" v-else-if="activeTab === 'messages'"></ChildMessages>
               
             </Transition>
         </div>

@@ -66,7 +66,7 @@ const readableDuration = (duration: string) => {
                                 </span>
                             </p>
                             
-                            <div class="flex gap-2 items-center self-start">
+                            <div class="self-start">
                                 <DropdownMenu>
                                     <DropdownMenuTrigger>
                                         <EllipsisVertical class="size-6"></EllipsisVertical>

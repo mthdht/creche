@@ -67,7 +67,7 @@ export interface Child {
     additional_notes: AdditionalNote[];
     transmissions: [];
     last_five_days_transmissions: Transmission[],
-    all_messages: []
+    all_messages: Message[]
 }
 
 export interface Health {
@@ -110,6 +110,14 @@ export interface Transmission {
     type: string
     duration?: string,
     severity?: string
+}
+
+export interface Message {
+    id: number
+    title: string
+    content: string
+    severity: 'low' | 'medium' | 'high'
+    target: 'child' | 'daycare' | 'all'
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
