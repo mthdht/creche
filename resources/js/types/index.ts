@@ -118,6 +118,7 @@ export interface Message {
     content: string
     severity: 'low' | 'medium' | 'high'
     target: 'child' | 'daycare' | 'all'
+    created_at: string
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;

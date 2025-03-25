@@ -17,12 +17,18 @@ const borderStyle: any =  {
     'medium': 'border-l-yellow-500',
     'high': 'border-l-red-500'
 }
+
+const targetMap: any = {
+    all: 'Générale',
+    child: 'Personnel',
+    daycare: 'Crèche'
+}
 </script>
 
 <template>
     <section class="messages space-y-4">
         <div class="text-center py-4" v-if="props.child.all_messages.length == 0">
-            Aucune activité enregistré !
+            Aucun message enregistré !
         </div>
 
         <div class="messages p-4 border border-l-4 space-y-2 rounded" :class="borderStyle[message.severity]" v-else v-for="message in props.child.all_messages">
@@ -68,6 +74,12 @@ const borderStyle: any =  {
                 </DropdownMenu>
             </p>
             <p class="">{{ message.content }}</p>
+            <p class="flex justify-between text-sm">
+                <span class="px-2 py-1 rounded-full border">{{ targetMap[message.target] }}</span>
+                <span>
+                    le {{ new Date(message.created_at).toLocaleDateString('fr-FR') }}
+                </span>
+            </p>
         </div>
     </section>
 </template>
