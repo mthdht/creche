@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
-import { reactive, computed } from 'vue';
+import { Head, Link, router } from '@inertiajs/vue3';
+import { reactive, computed, ref } from 'vue';
 
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem, type Daycare, type Child } from '@/types';
@@ -8,10 +8,11 @@ import { type BreadcrumbItem, type Daycare, type Child } from '@/types';
 import Select from '@/components/Select.vue';
 import { Dialog, DialogTrigger, DialogContent, DialogClose  } from '@/components/ui/dialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { Baby, EllipsisVertical, Locate, Pencil, Search, Store, Trash, UserPlus } from 'lucide-vue-next';
+import { Search, Store,  UserPlus } from 'lucide-vue-next';
 
 const props = defineProps<{
-    children: Child[]
+    children: Child[],
+    daycares: Daycare[]
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -25,6 +26,12 @@ const filters = reactive({
     search: '',
     sort: '',
 });
+
+const daycareSelectOptions = props.daycares.map(daycare => {
+    return {label: daycare.name, value: daycare.id}
+})
+
+const selectedDaycare = ref()
 
 const filteredChildren = computed(() => {
     return props.children
@@ -75,9 +82,30 @@ const filteredChildren = computed(() => {
                     placeholder="Trier par" class="bg-white grow"
                 ></Select>
 
-                <Link :href="route('children.create')" class="bg-emerald-500 px-3 py-1 rounded shadow">
-                    <UserPlus class="size-7 text-white"></UserPlus>
-                </Link>
+                <Dialog class="">
+                    <DialogTrigger class="p-2 text-white bg-emerald-500 rounded shadow">
+                        <UserPlus class="size-6"></UserPlus>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <p>Pour quelle crèche voulez-vous ajouter un enfants ?</p>
+
+                        <Select v-model="selectedDaycare" 
+                            :options="daycareSelectOptions" 
+                            class="bg-white grow"
+                        ></Select>
+
+                        <div class="flex gap-2 justify-end">
+                            <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
+
+                            <button 
+                                class="bg-emerald-500 text-white px-3 py-2 rounded"
+                                @click="selectedDaycare && router.visit('/daycares/' + selectedDaycare + '/children/create')" 
+                            >
+                                Suivant
+                            </button>
+                        </div>
+                    </DialogContent>
+                </Dialog>
             </section>
 
             <section class="daycares" >
