@@ -41,7 +41,7 @@ const targetMap: any = {
 
 <template>
     <section class="messages space-y-4">
-        <div class="filters flex gap-2">
+        <div class="filters flex gap-2 border p-2 rounded">
             <Select 
                 placeholder="Importance"
                 name="severity" 
@@ -82,8 +82,8 @@ const targetMap: any = {
             </Link>
         </div>
 
-        <div class="text-center py-4" v-if="props.child.all_messages.length == 0">
-            Aucun message enregistré !
+        <div class="text-center py-4" v-if="filteredMessages.length == 0">
+            Aucun message enregistré avec ces critères!
         </div>
 
         <div class="messages p-4 border border-l-4 space-y-2 rounded" :class="borderStyle[message.severity]" v-else v-for="message in filteredMessages">

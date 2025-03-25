@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Daycare;
 
 class User extends Authenticatable
 {
@@ -45,6 +46,11 @@ class User extends Authenticatable
     public function children()
     {
         return $this->belongsToMany(Child::class, 'child_user');
+    }
+
+    public function daycaresChildren()
+    {
+        return $this->hasManyThrough(child::class, Daycare::class);
     }
 
     // Exemple de fonction pour récupérer le rôle de l'utilisateur (tuteur, professionnel, etc.)

@@ -57,6 +57,7 @@ export interface Daycare {
 
 export interface Child {
     id: number;
+    daycare_id: number
     first_name: string;
     last_name: string;
     sexe: string;
@@ -68,6 +69,7 @@ export interface Child {
     transmissions: [];
     last_five_days_transmissions: Transmission[],
     all_messages: Message[]
+    daycare: Daycare
 }
 
 export interface Health {

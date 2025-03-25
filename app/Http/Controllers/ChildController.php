@@ -18,7 +18,9 @@ class ChildController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('children/Index', [
+            'children' => Auth::user()->daycaresChildren
+        ]);
     }
 
     /**
