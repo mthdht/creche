@@ -6,11 +6,25 @@ import { type Daycare, type Child } from '@/types';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Dialog, DialogTrigger, DialogContent, DialogClose  } from '@/components/ui/dialog';
 import { Trash, Pencil, EllipsisVertical, Plus } from 'lucide-vue-next';
+import Select from './Select.vue';
+import { ref, computed } from 'vue';
 
 const props = defineProps<{
     daycare: Daycare;
     child: Child;
 }>();
+
+const severityFilter = ref()
+const targetFilter = ref()
+
+const filteredMessages = computed(() => {
+    return props.child.all_messages.filter((message) => {
+        return (
+            (!severityFilter.value || message.severity === severityFilter.value) &&
+            (!targetFilter.value || message.target === targetFilter.value)
+        );
+    });
+})
 
 const borderStyle: any =  {
     'low': 'border-l-sky-500',
@@ -27,12 +41,43 @@ const targetMap: any = {
 
 <template>
     <section class="messages space-y-4">
-        <div class="filters">
+        <div class="filters flex gap-2">
+            <Select 
+                placeholder="Importance"
+                name="severity" 
+                id="severity" 
+                class="w-full rounded-lg border border-gray-200 grow" 
+                v-model="severityFilter"
+                tabindex="5"
+                required
+                :options="[
+                    {value: '', label: 'Aucune'},
+                    {value: 'high', label: 'Elevé'},
+                    {value: 'medium', label: 'Normal'},
+                    {value: 'low', label: 'Basse'},
+                ]"
+            ></Select>
+
+            <Select 
+                placeholder="Destinataire"
+                name="severity" 
+                id="severity" 
+                class="w-full rounded-lg border border-gray-200 grow" 
+                v-model="targetFilter"
+                tabindex="5"
+                required
+                :options="[
+                    {value: '', label: 'Tout le monde'},
+                    {value: 'all', label: 'Générale'},
+                    {value: 'daycare', label: 'Crèche'},
+                    {value: 'child', label: props.child.first_name + ' ' + props.child.last_name},
+                ]"
+            ></Select>
+                    
             <Link 
                 :href="route('daycares.children.messages.create', {daycare: props.daycare.id, child: props.child.id})"
-                class="flex items-center gap-2 justify-between w-full"
+                class="flex items-center gap-2 justify-between"
                 >
-                
                 <Plus class="size-6 text-white bg-emerald-500 rounded p-1 shadow-lg"></Plus>
             </Link>
         </div>
@@ -41,7 +86,7 @@ const targetMap: any = {
             Aucun message enregistré !
         </div>
 
-        <div class="messages p-4 border border-l-4 space-y-2 rounded" :class="borderStyle[message.severity]" v-else v-for="message in props.child.all_messages">
+        <div class="messages p-4 border border-l-4 space-y-2 rounded" :class="borderStyle[message.severity]" v-else v-for="message in filteredMessages">
             <p class="flex justify-between font-semibold">
                 <span>{{  message.title }}</span>
 
