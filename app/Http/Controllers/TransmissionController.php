@@ -78,9 +78,9 @@ class TransmissionController extends Controller
     {
         if (Auth::user()->can('act', $daycare)) {
             $transmission->update($request->all());
-         }
- 
-         return redirect()->route('daycares.children.show', [$daycare, $child, 'tab' => 'transmissions']);
+        }
+
+        return redirect()->route('daycares.children.show', [$daycare, $child, 'tab' => 'transmissions']);
     }
 
     /**

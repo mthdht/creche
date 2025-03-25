@@ -20,7 +20,7 @@ class TransmissionFactory extends Factory
         $array = [
             'child_id' => 1,
             'type' => $this->faker->randomElement([
-                'sieste', 'repas', 'hygiène'
+                'sieste', 'repas', 'hygiene'
             ]),
             'description' => $this->faker->sentence(),
             'duration' => $this->faker->time('H:i'),

@@ -60,7 +60,7 @@ const readableDuration = (duration: string) => {
                                     {{ readableTime(transmission.datetime) }}
                                 </span>
                                 <component :is="iconMap[transmission.type]"></component>
-                                <span>{{  transmission.type.toUpperCase() }}</span>
+                                <span>{{  transmission.type == 'hygiene' ? 'Hygiène' : transmission.type.toUpperCase() }}</span>
                                 <span v-if="transmission.duration">
                                     de {{ readableDuration(transmission.duration) }}
                                 </span>

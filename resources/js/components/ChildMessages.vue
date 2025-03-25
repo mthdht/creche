@@ -5,7 +5,7 @@ import { type Daycare, type Child } from '@/types';
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Dialog, DialogTrigger, DialogContent, DialogClose  } from '@/components/ui/dialog';
-import { Trash, Pencil, EllipsisVertical } from 'lucide-vue-next';
+import { Trash, Pencil, EllipsisVertical, Plus } from 'lucide-vue-next';
 
 const props = defineProps<{
     daycare: Daycare;
@@ -27,6 +27,16 @@ const targetMap: any = {
 
 <template>
     <section class="messages space-y-4">
+        <div class="filters">
+            <Link 
+                :href="route('daycares.children.messages.create', {daycare: props.daycare.id, child: props.child.id})"
+                class="flex items-center gap-2 justify-between w-full"
+                >
+                
+                <Plus class="size-6 text-white bg-emerald-500 rounded p-1 shadow-lg"></Plus>
+            </Link>
+        </div>
+
         <div class="text-center py-4" v-if="props.child.all_messages.length == 0">
             Aucun message enregistré !
         </div>
@@ -60,13 +70,16 @@ const targetMap: any = {
                                 <p>Êtes-vous sûr de vouloir supprimer ce message ?</p>
                                 <div class="flex gap-2 justify-end">
                                     <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
-                                    <Link 
+                                    <DialogClose @click="" >
+
+                                        <Link 
                                         :href="route('daycares.children.messages.destroy', {daycare: props.daycare.id, child: props.child.id, message: message.id})" 
                                         method="delete"
                                         class="bg-red-500 text-white px-3 py-2 rounded"
-                                    >
-                                        Supprimer
-                                    </Link> 
+                                        >
+                                            Supprimer
+                                        </Link> 
+                                    </DialogClose>
                                 </div>
                             </DialogContent>
                         </Dialog>
