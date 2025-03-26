@@ -40,7 +40,7 @@ const activeTab = ref(params.get('tab') || 'infos')
     <Head :title="`${props.child.last_name} ${props.child.first_name}`" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="space-y-6">
+        <div class="space-y-6 p-4">
             <h2 class="font-semibold text-xl flex gap-3">
                 <div class="avatar w-24 h-24 rounded-full overflow-hidden border-2" :class="[child.sexe == 'male' ? 'border-sky-500' : 'border-pink-500']">
                     <img :src="child.avatar || 'default-avatar.png'" alt="avatar de l'enfant" class="object-cover w-full h-full">
