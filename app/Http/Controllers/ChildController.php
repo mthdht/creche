@@ -10,7 +10,7 @@ use App\Http\Requests\UpdateChildRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
-use App\Notifications\ChildAdded;
+use App\Notifications\ChildEvent;
 
 class ChildController extends Controller
 {
@@ -51,7 +51,7 @@ class ChildController extends Controller
             $child = $daycare->children()->create($data);
             $child->health()->save($health);
 
-            Auth::user()->notify(new ChildAdded($child));
+            Auth::user()->notify(new ChildEvent($child, 'Vous avez créer un nouvel enfant!'));
 
             return redirect()->route('daycares.children.show', [$daycare, $child]);
         }
@@ -65,20 +65,6 @@ class ChildController extends Controller
     public function show(Daycare $daycare, Child $child)
     {
         $child->load(['guardians', 'health', 'additionalNotes', 'lastFiveDaysTransmissions', 'allMessages']);
-
-        if (Auth::user()->can('act', $daycare)) {
-            return Inertia::render('children/Show', [
-                'daycare' => $daycare,
-                'child' => $child
-            ]);
-        }
-
-        return back();
-    }
-
-    public function showTransmissions(Daycare $daycare, Child $child)
-    {
-        $child->load(['lastFiveDaysTransmissions']);
 
         if (Auth::user()->can('act', $daycare)) {
             return Inertia::render('children/Show', [
@@ -111,6 +97,8 @@ class ChildController extends Controller
 
             $child->update($data);
 
+            Auth::user()->notify(new ChildEvent($child, 'Vous avez Modifier un enfant!'));
+
             return redirect()->route('daycares.children.show', [$daycare, $child]);
         }
 
@@ -125,7 +113,10 @@ class ChildController extends Controller
         if (Auth::user()->can('act', $daycare)) {
             $child->delete();
 
+            Auth::user()->notify(new ChildEvent($child, 'Vous avez supprimer enfant!'));
+
             return redirect()->route('daycares.show', $daycare);
+
         }
 
         return back();

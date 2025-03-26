@@ -8,18 +8,20 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\Child;
 
-class ChildAdded extends Notification
+class ChildEvent extends Notification
 {
     use Queueable;
-    
+
     protected $child;
+    protected $message;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(child $child)
+    public function __construct(child $child, $message)
     {
         $this->child = $child;
+        $this->message = $message;
     }
 
     /**
@@ -51,7 +53,7 @@ class ChildAdded extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Un nouvel enfant vient d\'etre crée !',
+            'message' => $this->message,
             'child' => $this->child
         ];
     }
