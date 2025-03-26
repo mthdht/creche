@@ -11,7 +11,7 @@ class UpdateAdditionalNoteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->profile->role === 'professional';
+        return $this->user()->can('act', $this->daycare);
     }
 
     /**

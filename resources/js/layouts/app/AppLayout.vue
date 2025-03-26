@@ -21,7 +21,7 @@ withDefaults(defineProps<Props>(), {
         <main class="grow md:p-4 h-screen ">
             <div class="h-full flex flex-col overflow-hidden shadow rounded-lg">
                 <AppHeader :breadcrumbs="breadcrumbs" />
-                <div class=" grow space-y-4 overflow-auto p-4 bg-white">
+                <div class="grow space-y-4 overflow-auto p-4 bg-white">
                     <slot />
                 </div>
             </div>

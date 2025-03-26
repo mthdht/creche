@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Daycare;
 
 class UpdateDaycareRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateDaycareRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->profile->role === 'professional';
+        return $this->user()->can('act', $this->daycare);
     }
 
     /**
