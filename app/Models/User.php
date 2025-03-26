@@ -34,7 +34,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $with = ['profile'];
+    protected $with = ['profile', 'notifications'];
 
     // Les informations de profil sont liées ici
     public function profile()

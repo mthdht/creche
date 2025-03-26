@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateChildRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use App\Notifications\ChildAdded;
 
 class ChildController extends Controller
 {
@@ -49,6 +50,8 @@ class ChildController extends Controller
             $health = new Health();
             $child = $daycare->children()->create($data);
             $child->health()->save($health);
+
+            Auth::user()->notify(new ChildAdded($child));
 
             return redirect()->route('daycares.children.show', [$daycare, $child]);
         }
