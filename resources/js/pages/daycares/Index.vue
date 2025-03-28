@@ -87,9 +87,6 @@ const filteredDaycares = computed(() => {
                     <p class="flex gap-2 items-center"><Baby class="size-6"></Baby>{{ daycare.children_count }} enfants</p>
                 </Link href="daycares/">
             </section>
-
-
-            {{  filters }}
         </div>
     </AppLayout>
 </template>

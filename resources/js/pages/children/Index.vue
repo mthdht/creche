@@ -56,11 +56,12 @@ const filteredChildren = computed(() => {
     <Head title="Tout les enfants" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
+        
         <div class="space-y-4">
             <h2 class="font-semibold text-xl flex justify-between gap-3">
                 <div class="flex gap-3">
                     <Store class="size-8 text-indigo-500"></Store>
-                   Tout les enfants
+                Tout les enfants
                 </div>
 
             </h2>
@@ -70,7 +71,7 @@ const filteredChildren = computed(() => {
                     <Search class="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400"></Search>
                     <input 
                         type="text" 
-                        class="w-full rounded border border-gray-200 p-2 pl-10" 
+                        class="w-full rounded border border-gray-200 p-2 pl-10 shadow" 
                         placeholder="Rechercher un enfant"
                         v-model="filters.search">
                 </div>
@@ -107,6 +108,7 @@ const filteredChildren = computed(() => {
                     </DialogContent>
                 </Dialog>
             </section>
+        
 
             <section class="daycares" >
                 <template v-if="filteredChildren.length === 0">

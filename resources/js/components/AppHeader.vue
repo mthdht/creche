@@ -16,9 +16,9 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import UserMenuContent from '@/components/UserMenuContent.vue';
 import { getInitials } from '@/composables/useInitials';
-import type { BreadcrumbItem, NavItem } from '@/types';
+import type { BreadcrumbItem, NavItem, SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-vue-next';
+import { Bell, LayoutGrid, Search } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 interface Props {
@@ -29,8 +29,9 @@ const props = withDefaults(defineProps<Props>(), {
     breadcrumbs: () => [],
 });
 
-const page = usePage();
+const page = usePage<SharedData>();
 const auth = computed(() => page.props.auth);
+const hasNotifications = computed(() => page.props.unreadNotificationsCount)
 
 const isCurrentRoute = computed(() => (url: string) => page.url === url);
 
@@ -48,15 +49,11 @@ const mainNavItems: NavItem[] = [
 
 const rightNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: Folder,
+        title: 'Notifications',
+        href: 'notifications',
+        icon: Bell,
     },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits',
-        icon: BookOpen,
-    },
+    
 ];
 </script>
 
@@ -69,7 +66,7 @@ const rightNavItems: NavItem[] = [
                     <Sheet>
                         <SheetTrigger :as-child="true">
                             <Button variant="ghost" size="icon" class="mr-2 h-9 w-9">
-                                <Menu class="h-5 w-5" />
+                                <AppLogo />
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="left" class="w-[300px] p-6">
@@ -108,8 +105,8 @@ const rightNavItems: NavItem[] = [
                     </Sheet>
                 </div>
 
-                <Link :href="route('dashboard')" class="flex items-center gap-x-2">
-                    <AppLogo />
+                <Link :href="route('dashboard')" class="flex items-center gap-x-2 font-bold text-xl lg:hidden">
+                    Ma crèche
                 </Link>
 
                 <!-- Desktop Menu -->
@@ -121,7 +118,7 @@ const rightNavItems: NavItem[] = [
                                     <NavigationMenuLink
                                         :class="[navigationMenuTriggerStyle(), activeItemStyles(item.href), 'h-9 cursor-pointer px-3']"
                                     >
-                                        <component v-if="item.icon" :is="item.icon" class="mr-2 h-4 w-4" />
+                                        <component v-if="item.icon" :is="item.icon" class="mr-2 size-5" />
                                         {{ item.title }}
                                     </NavigationMenuLink>
                                 </Link>
@@ -136,21 +133,20 @@ const rightNavItems: NavItem[] = [
 
                 <div class="ml-auto flex items-center space-x-2">
                     <div class="relative flex items-center space-x-1">
-                        <Button variant="ghost" size="icon" class="group h-9 w-9 cursor-pointer">
+                        <Button variant="ghost" size="icon" class="group h-9 w-9 cursor-pointer hidden lg:block">
                             <Search class="size-5 opacity-80 group-hover:opacity-100" />
                         </Button>
 
-                        <div class="hidden space-x-1 lg:flex">
+                        <div class="space-x-1 flex">
                             <template v-for="item in rightNavItems" :key="item.title">
                                 <TooltipProvider :delay-duration="0">
                                     <Tooltip>
                                         <TooltipTrigger>
-                                            <Button variant="ghost" size="icon" as-child class="group h-9 w-9 cursor-pointer">
-                                                <a :href="item.href" target="_blank" rel="noopener noreferrer">
-                                                    <span class="sr-only">{{ item.title }}</span>
-                                                    <component :is="item.icon" class="size-5 opacity-80 group-hover:opacity-100" />
-                                                </a>
-                                            </Button>
+                                            <Link :href="item.href" class="size-9 flex items-center justify-center relative">
+                                                <span class="sr-only">{{ item.title }}</span>
+                                                <component :is="item.icon" class="size-5 opacity-80 group-hover:opacity-100" />
+                                                <span class="size-2 bg-red-500 rounded-full absolute top-1.5 right-2" v-show="hasNotifications"></span>
+                                            </Link>
                                         </TooltipTrigger>
                                         <TooltipContent>
                                             <p>{{ item.title }}</p>
