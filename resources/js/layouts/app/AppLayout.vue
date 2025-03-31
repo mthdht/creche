@@ -18,8 +18,8 @@ withDefaults(defineProps<Props>(), {
 <template>
     <AppShell>
         <AppSidebar />
-        <main class="grow md:p-4 h-screen ">
-            <div class="h-full flex flex-col overflow-hidden shadow rounded-lg pb-16">
+        <main class="grow md:p-4 h-screen overflow-hidden">
+            <div class="h-full flex flex-col max-w-full overflow-hidden shadow rounded-lg pb-16 lg:p-0">
                 <AppHeader :breadcrumbs="breadcrumbs" />
                 <div class="grow overflow-auto p-4 bg-white">
                     <slot />

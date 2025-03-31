@@ -16,6 +16,7 @@ use App\Http\Controllers\AllergyController;
 use App\Http\Controllers\AdditionalNoteController;
 use App\Http\Controllers\TransmissionController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -62,6 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
     
+    Route::resource('notifications', NotificationController::class);
     Route::resource('daycares', DaycareController::class);
     Route::resource('daycares.children', ChildController::class);
     Route::resource('children', ChildController::class);
@@ -72,6 +74,4 @@ Route::middleware('auth')->group(function () {
     Route::resource('daycares.children.additionalNotes', additionalNoteController::class);
     Route::resource('daycares.children.transmissions', TransmissionController::class);
     Route::resource('daycares.children.messages', MessageController::class);
-
-
 });

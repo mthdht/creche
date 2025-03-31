@@ -50,7 +50,7 @@ const mainNavItems: NavItem[] = [
 const rightNavItems: NavItem[] = [
     {
         title: 'Notifications',
-        href: 'notifications',
+        href: '/notifications',
         icon: Bell,
     },
     

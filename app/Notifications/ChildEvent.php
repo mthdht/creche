@@ -12,16 +12,18 @@ class ChildEvent extends Notification
 {
     use Queueable;
 
-    protected $child;
+    protected $url;
     protected $message;
+    protected $type;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(child $child, $message)
+    public function __construct($message, $type, $url)
     {
-        $this->child = $child;
+        $this->url = $url;
         $this->message = $message;
+        $this->type = $type;
     }
 
     /**
@@ -54,7 +56,8 @@ class ChildEvent extends Notification
     {
         return [
             'message' => $this->message,
-            'child' => $this->child
+            'url' => $this->url,
+            'type' => $this->type
         ];
     }
 }

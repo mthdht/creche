@@ -125,4 +125,15 @@ export interface Message {
     created_at: string
 }
 
+export interface Notification {
+    id: number
+    data: {
+        type: string
+        message: string
+        url: string
+    }
+    created_at: string
+    read_at: string
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;

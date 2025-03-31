@@ -51,7 +51,9 @@ class ChildController extends Controller
             $child = $daycare->children()->create($data);
             $child->health()->save($health);
 
-            Auth::user()->notify(new ChildEvent($child, 'Vous avez créer un nouvel enfant!'));
+            Auth::user()->notify(
+                new ChildEvent("Vous avez ajouter {$child->last_name} {$child->first_name} à la crèche {$daycare->name}!", 'create', route('daycares.children.show', [$daycare, $child]))
+            );
 
             return redirect()->route('daycares.children.show', [$daycare, $child]);
         }
@@ -97,7 +99,7 @@ class ChildController extends Controller
 
             $child->update($data);
 
-            Auth::user()->notify(new ChildEvent($child, 'Vous avez Modifier un enfant!'));
+            Auth::user()->notify(new ChildEvent($child, 'Vous avez Modifier un enfant!', 'edit'));
 
             return redirect()->route('daycares.children.show', [$daycare, $child]);
         }
@@ -113,7 +115,7 @@ class ChildController extends Controller
         if (Auth::user()->can('act', $daycare)) {
             $child->delete();
 
-            Auth::user()->notify(new ChildEvent($child, 'Vous avez supprimer enfant!'));
+            Auth::user()->notify(new ChildEvent($child, 'Vous avez supprimer enfant!', 'delete'));
 
             return redirect()->route('daycares.show', $daycare);
 
