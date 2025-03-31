@@ -7,7 +7,6 @@ import { type BreadcrumbItem, type Daycare, type Child } from '@/types';
 
 import Select from '@/components/Select.vue';
 import { Dialog, DialogTrigger, DialogContent, DialogClose  } from '@/components/ui/dialog';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Search, Store,  UserPlus } from 'lucide-vue-next';
 
 const props = defineProps<{
@@ -25,6 +24,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 const filters = reactive({
     search: '',
     sort: '',
+    daycare: ''
 });
 
 const daycareSelectOptions = props.daycares.map(daycare => {
@@ -36,6 +36,7 @@ const selectedDaycare = ref()
 const filteredChildren = computed(() => {
     return props.children
         .filter(child => child.first_name.toLowerCase().includes(filters.search.toLowerCase()))
+        .filter(child => child.daycare.name == filters.daycare || filters.daycare == '')
         .sort((a, b) => {
             if (filters.sort === 'first_name') {
                 return a.first_name.localeCompare(b.first_name);
@@ -56,32 +57,12 @@ const filteredChildren = computed(() => {
     <Head title="Tout les enfants" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        
         <div class="space-y-4">
             <h2 class="font-semibold text-xl flex justify-between gap-3">
                 <div class="flex gap-3">
                     <Store class="size-8 text-indigo-500"></Store>
                 Tout les enfants
                 </div>
-
-            </h2>
-
-            <div class="space-y-3">
-                <div class="search relative">
-                    <Search class="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400"></Search>
-                    <input 
-                        type="text" 
-                        class="w-full rounded border border-gray-200 p-2 pl-10 shadow" 
-                        placeholder="Rechercher un enfant"
-                        v-model="filters.search">
-                </div>
-            </div>
-
-            <section class="filters flex justify-between gap-2">
-                <Select v-model="filters.sort" 
-                    :options="[{label: 'Aucun tri', value: null}, {label: 'Nom', value: 'first_name'}, {label: 'Sexe', value: 'sexe'}]" 
-                    placeholder="Trier par" class="bg-white grow"
-                ></Select>
 
                 <Dialog class="">
                     <DialogTrigger class="p-2 text-white bg-emerald-500 rounded shadow">
@@ -107,6 +88,34 @@ const filteredChildren = computed(() => {
                         </div>
                     </DialogContent>
                 </Dialog>
+
+            </h2>
+
+            <div class="space-y-3">
+                <div class="search relative">
+                    <Search class="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400"></Search>
+                    <input 
+                        type="text" 
+                        class="w-full rounded border border-gray-200 p-2 pl-10 shadow" 
+                        placeholder="Rechercher un enfant"
+                        v-model="filters.search">
+                </div>
+            </div>
+
+            <section class="filters flex justify-between gap-2">
+                <Select 
+                    v-model="filters.daycare" 
+                    :options="[{label: 'Toutes les crèches', value: ''}, ...daycares.map(daycare => {
+                        return {label: daycare.name, value: daycare.name }
+                    })]" 
+                    placeholder="Trier par crèches" 
+                    class="bg-white w-2/3"
+                ></Select>
+
+                <Select v-model="filters.sort" 
+                    :options="[{label: 'Aucun tri', value: null}, {label: 'Nom', value: 'first_name'}, {label: 'Sexe', value: 'sexe'}]" 
+                    placeholder="Trier par" class="bg-white grow"
+                ></Select>
             </section>
         
 

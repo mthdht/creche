@@ -24,6 +24,8 @@ class Child extends Model
         'first_name', 'last_name', 'birth_date', 'sexe', 'avatar','daycare_id'
     ];
 
+    protected $with = ['daycare'];
+
     /**
      * Un enfant appartient à une crèche.
      */
