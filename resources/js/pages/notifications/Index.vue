@@ -55,8 +55,8 @@ const isRead = (notification: Notification) => {
                     :class="[borderStyle[notification.data.type], isRead(notification)]"
                 >
                     <DropdownMenu>
-                        <DropdownMenuTrigger class="self-start p-1 aspect-square float-right">
-                            <EllipsisVertical class="size-7 mt-1"></EllipsisVertical>
+                        <DropdownMenuTrigger class="self-start aspect-square float-right">
+                            <EllipsisVertical class="size-7"></EllipsisVertical>
                         </DropdownMenuTrigger>
                         
                         <DropdownMenuContent align="end" class="mt-2">
@@ -76,13 +76,16 @@ const isRead = (notification: Notification) => {
                                     <p>Êtes-vous sûr de vouloir supprimer cette notifications ?</p>
                                     <div class="flex gap-2 justify-end">
                                         <DialogClose @click="" class="bg-slate-200 border px-3 py-2 rounded">Annuler</DialogClose>
+
+                                        <DialogClose>
                                             <Link 
                                             :href="route('notifications.destroy', {notification: notification.id})" 
                                             method="delete"
                                             class="bg-red-500 text-white px-3 py-2 rounded"
                                             >
-                                            Supprimer
-                                        </Link> 
+                                                Supprimer
+                                            </Link> 
+                                        </DialogClose>
                                     </div>
                                 </DialogContent>
                             </Dialog>
@@ -91,6 +94,7 @@ const isRead = (notification: Notification) => {
 
                     <p>{{ notification.data.message }}</p>
                     <p>le {{ new Date(notification.created_at).toLocaleDateString() }}</p>
+                    <p>{{ notification }}</p>
                 </div>
             </section>
         </div>

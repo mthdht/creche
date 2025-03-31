@@ -30,4 +30,13 @@ class NotificationController extends Controller
 
         return back();
     }
+
+    public function destroy($notificationId)
+    {
+        $notification = Auth::user()->notifications->where('id', $notificationId)->first();
+
+        $notification->delete();
+
+        return back();
+    }
 }
